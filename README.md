@@ -1,29 +1,26 @@
-# The Finest (ish) AI Skills
+# The Finest (-ish) AI Skills
 
-A curated collection of advanced AI agent directives and skills for professional-grade development, research, and design workflows.
+A curated collection of LLM and AI agent directives for real work and usage that doesn't *suck*.
+Each directive was meticulously created with specific use cases, operational protocols, and professional standards.
 
-## 📋 Overview
+## 🚀 Available Prompts
 
-This repository contains specialized AI skill sets designed to enhance productivity and output quality across various domains. Each skill is meticulously crafted with specific use cases, operational protocols, and professional standards.
-
-## 🚀 Available Skills
-
-### Core Skills
+### Core
 - **[Alpha](Alpha.md)** - Experimental generalist directive with traits stemming from all other directives. Maybe more useful as a sysprompt.
 - **[Coder v2.0](Coder.md)** - Production-grade software development with rigorous testing and validation. Set this as your agent's global rulesfile.
 - **[DeepCoder](DeepCoder.md)** - Applies higher effort to more complex vibe coding tasks.
 - **[Sherlock](Sherlock.md)** - Deep research and investigation with cross-source verification and fact-finding missions
 
-### Specialized Skills
+### Specialized
 - **[Lifewise](Lifewise.md)** - Christ-centered life guidance, spiritual formation, and practical wisdom
-- **[R-Prompt (Legacy)](R-Prompt%20(legacy).md)** - Forces chain-of-thought reasoning and dialectical thinking
+- **[R-Prompt (Legacy)](R-Prompt%20(legacy).md)** - Forces chain-of-thought reasoning and dialectical thinking. Useful for old LLMs without native CoT.
 - **[R-Image](R-Image.md)** - High-quality image generation through structured intent analysis
 - **[Image to Prompt](Image%20to%20Prompt.md)** - Converts images into detailed, production-ready text descriptions
 
-### Design Skills
+### Designer
 - **[Designer-XL Preview](Designer/Designer-XL%20Preview%20(latest).md)** - Professional UI/UX design with narrative, atmosphere, and technical completeness
 - **[Designer (Latest)](Designer/Designer%20(latest).md)** - Professional UI/UX design workflow
-- **[Designer Mini](Designer/Designer%20Mini%20(latest).md)** - Compact version of Designer skill
+- **[Designer Mini](Designer/Designer%20Mini%20(latest).md)** - Compact version of Designer directive.
 
 ## 📁 Repository Structure
 
@@ -51,15 +48,15 @@ This repository contains specialized AI skill sets designed to enhance productiv
 
 ## 🎯 Usage
 
-Each skill file contains:
+In proper Agent Skills headered format, each file contains:
 - **Name & Description** - Clear purpose and use case identification
 - **License** - CC BY 4.0 for maximum compatibility
 - **Metadata** - Author, compatibility, and quick summary (tldr)
 - **Protocol** - Detailed operational instructions and methodologies
 
 ### How to Use
-1. Select the appropriate skill based on your task requirements
-2. Apply the directive to your AI agent or LLM
+1. Select the appropriate prompt based on your task requirements
+2. Save the directive to your AI agent or LLM
 3. Follow the specific protocols and guidelines provided
 4. Reference the tldr section for quick understanding
 
@@ -71,25 +68,6 @@ All skills in this collection adhere to:
 - **Comprehensive Documentation** - Clear, actionable instructions
 - **Version Control** - Maintained history and archived versions
 
-## 📈 Categories
-
-### Development & Engineering
-- Coder v2.0 - Software development
-- DeepCoder - Complex implementations
-- Alpha - General excellence
-
-### Research & Analysis
-- Sherlock - Deep investigation
-- R-Prompt - Analytical reasoning
-
-### Creative & Design
-- Designer Series - UI/UX design
-- R-Image - Image generation
-- Image to Prompt - Visual analysis
-
-### Personal Development
-- Lifewise - Life guidance and wisdom
-
 ## 🤝 Contributing
 
 This repository follows the [AGENTS.md](AGENTS.md) meta-rules for all modifications. When contributing:
@@ -99,6 +77,8 @@ This repository follows the [AGENTS.md](AGENTS.md) meta-rules for all modificati
 3. Ensure compatibility with existing skills
 4. Test protocols thoroughly
 5. Document changes clearly
+
+*Vibe coding* and other sorts of AI usage are explicitly allowed. Please do check/test your work in at least 3 different AIs though to ensure it, well, works.
 
 ## 📄 License
 
