@@ -30,6 +30,3 @@ yarn-error.log*
 # Temporary files
 *.tmp
 *.temp
-
-# Vibe coding/writing agent settings (AGENTS.md)
-[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
