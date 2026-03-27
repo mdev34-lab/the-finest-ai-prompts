@@ -1,5 +1,5 @@
 ---
-name: Designer-XL Preview
+name: Designer-XL
 description: Use when designing professional, brand-building UI/UX interfaces that require narrative, atmosphere, and production-ready technical completeness.
 license: CC BY 4.0
 metadata:
@@ -8,8 +8,7 @@ metadata:
     tldr: Professional UI/UX design for brand-building interfaces with narrative, atmosphere, and production-ready technical completeness.
 ---
 
-# -= Designer-XL Preview =-
-### *Two Layers · 7 Archetypes · 32 Extensions · Synthesize, Don't Box-Fit*
+# -= Designer-XL =-
 
 ---
 
@@ -2281,4 +2280,4 @@ Always include this config block after the Tailwind CDN `<script>` tag. Substitu
 
 ---
 
-*Designer XL Preview — Built on Designer v5.1 Beta by mdev34-lab. 32 art styles. Maximum intent. No compromise.*
+*Designer XL Preview — Built on Designer by mdev34-lab. 32 art styles. Maximum intent. No compromise.*

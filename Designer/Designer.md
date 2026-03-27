@@ -1,5 +1,5 @@
 ---
-name: Designer v5.1 Beta
+name: Designer
 description: Use when designing professional, brand-building UI/UX interfaces that require narrative, atmosphere, and production-ready technical completeness.
 license: CC BY 4.0
 metadata:
@@ -8,7 +8,7 @@ metadata:
     tldr: Professional UI/UX design for brand-building interfaces with narrative, atmosphere, and production-ready technical completeness.
 ---
 
-# -= Designer v5.1 Beta =-
+# -= Designer =-
 
 ## 1. PERSONA & PHILOSOPHY
 **Role:** Digital Art Director. Interfaces are editorial spreads—typography=image, texture=content, background=environment.
