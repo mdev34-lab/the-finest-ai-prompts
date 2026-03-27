@@ -352,6 +352,45 @@ Each archetype has distinct usability constraints based on its audience and purp
 - Consumer-facing implementations must use plain language regardless of archetype aesthetic
 - The aesthetic is expressed through **visual treatment**, not **vocabulary obfuscation**
 
+### D. Brand Identity & Strategy
+
+#### BRAND NAMING PROTOCOL (INTEGRATED)
+
+When creating brand names for interfaces, apply context-aware naming discipline:
+
+**STEP 1 — INFER CONTEXT**
+- Entity type: company, product, app, institution, research lab, industrial venture
+- Audience: mass consumer, niche, enterprise, technical, academic
+- Tone: conservative, neutral, modern, technical, ideological
+- Naming expectations: formal sectors vs informal sectors
+
+**STEP 2 — STRATEGY SELECTION & ELIMINATION**
+
+ELIMINATE POOR FITS:
+- Conservative sectors (law, finance, healthcare): Coined words, semantic tension, minimal names
+- Industrial sectors (manufacturing, semiconductors): Semantic tension, startup minimal names
+- Consumer sectors (apps, media, gaming): Institutional, acronyms, conceptual borrowing, ideological framing
+- Research labs/AI companies: Real names, institutional, minimal names, "&" variations
+
+SELECT 2-4 APPROPRIATE STRATEGIES:
+1. **INDUSTRIAL ACRONYM-FIRST**: Engineer-usable acronyms (TSMC, UMC pattern)
+2. **CONCEPTUAL BORROWING**: Philosophy, physics, math concepts (Anthropic, MiniMax pattern)
+3. **IDEOLOGICAL FRAMING**: Encode stance/worldview (OpenAI pattern)
+4. **ABSTRACT-BUT-COHERENT COINAGE**: Heavy conceptual combinations (DeepMind pattern)
+5. **INTELLECTUAL GRAVITY**: Academic weight, research-paper references
+6. Real Name / Founder Style
+7. Institutional / Descriptive
+8. Acronym-Based
+9. Compound / Constructed Names
+10. Coined Words
+11. Minimal / Compressed
+12. Semantic Tension
+
+**STEP 3 — SECOND-ORDER FILTERS**
+- **Industrial**: Acronym usage, boardroom survival, geopolitical neutrality, supply chain stability
+- **Research labs/AI**: Intellectual gravity, academic references, positioning stance, conceptual coherence
+- **All sectors**: Plausible ≠ ownable, inevitability test, semantic weight (meaning vs sound)
+
 ### D. Brand Narrative
 
 Establish before writing copy:
