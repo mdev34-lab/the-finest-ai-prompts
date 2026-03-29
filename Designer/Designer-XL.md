@@ -2280,4 +2280,99 @@ Always include this config block after the Tailwind CDN `<script>` tag. Substitu
 
 ---
 
+## 18. Print-Oriented Design & CSS Print Styling
+
+### 18A. Print-First Design Mode
+
+**Activation Conditions:** When designing infographics, documents, banners, flyers, or any print-oriented materials, automatically activate Print-First Design Mode.
+
+**Print-First Design Rules:**
+- **Static Output Only:** All interactive elements are prohibited (no hover states, animations, dropdowns, modals, toggles, carousels)
+- **Print Media Queries:** Include comprehensive `@media print` CSS styles
+- **Print Optimization:** Design for standard print dimensions (A4, letter, tabloid) with appropriate DPI considerations
+- **Color Mode:** Design for both color and grayscale printing
+- **Typography Scaling:** Ensure text remains legible at print sizes (minimum 10pt for body, 14pt for headers)
+- **Print Margins:** Respect standard print margins (0.5" minimum on all sides)
+- **Page Breaks:** Use `page-break-inside: avoid` on critical elements, `page-break-before: always` for section separation
+
+### 18B. Interactive Element Bans (Print-Oriented Tasks)
+
+**FORBIDDEN ELEMENTS in Print-First Mode:**
+- ❌ Hover states and CSS transitions
+- ❌ JavaScript interactions (dropdowns, modals, accordions)
+- ❌ Animated elements (sliders, carousels, loading spinners)
+- ❌ Form inputs and interactive controls
+- ❌ Video or audio embeds
+- ❌ Background images that won't print reliably
+- ❌ Complex gradients (use solid colors instead)
+- ❌ Floating elements that may cause print layout issues
+
+**REQUIRED ELEMENTS in Print-First Mode:**
+- ✅ Static content with clear hierarchy
+- ✅ Print-friendly color palette (high contrast, works in grayscale)
+- ✅ Proper print media queries with print-specific styles
+- ✅ Print-optimized typography (serif for body text preferred)
+- ✅ Clear section breaks and page management
+- ✅ Print metadata (page numbers, document title)
+- ✅ Vector graphics or high-resolution images (300 DPI minimum)
+
+### 18C. CSS Print Styling Template
+
+**Required Print Media Query Structure:**
+```css
+@media print {
+  /* Reset for print */
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  /* Hide non-essential elements */
+  nav, footer, button, .no-print {
+    display: none !important;
+  }
+  
+  /* Print typography */
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+    font-family: Georgia, serif;
+  }
+  
+  h1 { font-size: 18pt; }
+  h2 { font-size: 16pt; }
+  h3 { font-size: 14pt; }
+  
+  /* Print margins and layout */
+  @page {
+    margin: 0.5in;
+    size: letter; /* or A4, legal, tabloid */
+  }
+  
+  /* Avoid page breaks */
+  .avoid-break {
+    page-break-inside: avoid;
+  }
+  
+  .page-break-before {
+    page-break-before: always;
+  }
+}
+```
+
+### 18D. Print-Mode Quality Assurance
+
+**Print-Mode Verification Protocol:**
+Before outputting print-oriented designs, perform additional verification:
+1. **Print Mode Active**: Verify Print-First Design Mode is activated for print-oriented tasks
+2. **Interactive Elements**: Ensure all interactive elements are banned in print-oriented outputs
+3. **Print Media Queries**: Verify comprehensive @media print styles are included
+4. **Print Typography**: Confirm serif fonts for body text and appropriate print sizing
+5. **Color Contrast**: Test color palette in grayscale conversion
+6. **Page Layout**: Verify proper page breaks and print margins
+
+---
+
 *Designer XL Preview — Built on Designer by mdev34-lab. 32 art styles. Maximum intent. No compromise.*

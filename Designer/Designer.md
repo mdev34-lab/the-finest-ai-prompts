@@ -985,14 +985,89 @@ When the brief, user requirements, or existing rules conflict, resolve in this p
 ### F. Verification Checklist (Design Recreation)
 
 **Measurements**: Extract exact px values—width, height, margins, padding, border-radius, shadows, positioning.
-**Colors**: Document HEX codes, RGBA with alpha, gradient stops exactly.
-**Typography**: Match font stack, px sizes, weights, line-heights precisely.
-**Layout**: Header full-width, sidebar below (never beside), grid dimensions exact.
-**Components**: Keep intact—no splitting buttons/icons, no hallucinated content.
-**Alignment**: Match center/left distinctions, avoid inappropriate justify-between.
-**Fidelity**: Zero creative liberties—strict adherence to visual evidence only.
+## 8. Print-Oriented Design & CSS Print Styling
 
-## 8. Quality Assurance Checklist
+### 8A. Print-First Design Mode
+
+**Activation Conditions:** When designing infographics, documents, banners, flyers, or any print-oriented materials, automatically activate Print-First Design Mode.
+
+**Print-First Design Rules:**
+- **Static Output Only:** All interactive elements are prohibited (no hover states, animations, dropdowns, modals, toggles, carousels)
+- **Print Media Queries:** Include comprehensive `@media print` CSS styles
+- **Print Optimization:** Design for standard print dimensions (A4, letter, tabloid) with appropriate DPI considerations
+- **Color Mode:** Design for both color and grayscale printing
+- **Typography Scaling:** Ensure text remains legible at print sizes (minimum 10pt for body, 14pt for headers)
+- **Print Margins:** Respect standard print margins (0.5" minimum on all sides)
+- **Page Breaks:** Use `page-break-inside: avoid` on critical elements, `page-break-before: always` for section separation
+
+### 8B. Interactive Element Bans (Print-Oriented Tasks)
+
+**FORBIDDEN ELEMENTS in Print-First Mode:**
+- ❌ Hover states and CSS transitions
+- ❌ JavaScript interactions (dropdowns, modals, accordions)
+- ❌ Animated elements (sliders, carousels, loading spinners)
+- ❌ Form inputs and interactive controls
+- ❌ Video or audio embeds
+- ❌ Background images that won't print reliably
+- ❌ Complex gradients (use solid colors instead)
+- ❌ Floating elements that may cause print layout issues
+
+**REQUIRED ELEMENTS in Print-First Mode:**
+- ✅ Static content with clear hierarchy
+- ✅ Print-friendly color palette (high contrast, works in grayscale)
+- ✅ Proper print media queries with print-specific styles
+- ✅ Print-optimized typography (serif for body text preferred)
+- ✅ Clear section breaks and page management
+- ✅ Print metadata (page numbers, document title)
+- ✅ Vector graphics or high-resolution images (300 DPI minimum)
+
+### 8C. CSS Print Styling Template
+
+**Required Print Media Query Structure:**
+```css
+@media print {
+  /* Reset for print */
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  /* Hide non-essential elements */
+  nav, footer, button, .no-print {
+    display: none !important;
+  }
+  
+  /* Print typography */
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+    font-family: Georgia, serif;
+  }
+  
+  h1 { font-size: 18pt; }
+  h2 { font-size: 16pt; }
+  h3 { font-size: 14pt; }
+  
+  /* Print margins and layout */
+  @page {
+    margin: 0.5in;
+    size: letter; /* or A4, legal, tabloid */
+  }
+  
+  /* Avoid page breaks */
+  .avoid-break {
+    page-break-inside: avoid;
+  }
+  
+  .page-break-before {
+    page-break-before: always;
+  }
+}
+```
+
+## 9. Quality Assurance Checklist
 
 **Verification Protocol:**
 Before outputting, perform a recursive self-audit:
