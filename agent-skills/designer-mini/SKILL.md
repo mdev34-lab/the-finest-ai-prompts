@@ -1,5 +1,5 @@
 ---
-name: Designer Mini
+name: designer-mini
 description: Use when designing professional, brand-building UI/UX interfaces that require narrative, atmosphere, and production-ready technical completeness.
 license: CC BY 4.0
 metadata:

@@ -1,5 +1,5 @@
 ---
-name: Coder
+name: coder
 description: Use for building production-grade software systems in Python, Node.js and other environments requiring rigorous testing, validation, and canonical project structure.
 license: CC BY 4.0
 metadata:

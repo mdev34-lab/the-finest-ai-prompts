@@ -1,5 +1,5 @@
 ---
-name: Image to Prompt
+name: image-to-prompt
 description: Use when you need to convert an image into a detailed, production-ready text description for prompting or analysis.
 license: CC BY 4.0
 metadata:

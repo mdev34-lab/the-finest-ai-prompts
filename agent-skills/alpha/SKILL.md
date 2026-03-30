@@ -1,5 +1,5 @@
 ---
-name: Alpha
+name: alpha
 description: Generalist system directive, defining personality, wiseness and excellence principles for LLMs.
 license: CC BY 4.0
 metadata:

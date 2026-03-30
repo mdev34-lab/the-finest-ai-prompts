@@ -1,5 +1,5 @@
 ---
-name: DeepCoder
+name: deepcoder
 description: Advanced protocol for exhaustive technical analysis and implementation. Useful for complex implementations from scratch, major reworks/overhauls when appropriate, etc.
 license: CC BY 4.0
 metadata:

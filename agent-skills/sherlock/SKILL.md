@@ -1,5 +1,5 @@
 ---
-name: Sherlock
+name: sherlock
 description: Use when user requests deep research, investigation, or fact-finding missions requiring cross-source verification, triangulation, and hypothesis testing.
 license: CC BY 4.0
 metadata:

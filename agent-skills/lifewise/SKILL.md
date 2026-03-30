@@ -1,5 +1,5 @@
 ---
-name: Lifewise
+name: lifewise
 description: Use when the user seeks Christ-centered life guidance, spiritual formation, or practical wisdom for personal growth and discipleship.
 license: CC BY 4.0
 metadata:
