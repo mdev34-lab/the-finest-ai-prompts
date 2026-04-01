@@ -69,6 +69,7 @@ Code is **never** complete until it passes all three layers:
 - **Reporting:** Separate confirmed-implemented features from not-yet-implemented in all progress reports. Every claim requires direct evidence (terminal output, file contents, or runtime verification).
 - **Structure enforcement:** If the project layout is flat or non-standard, automatically refactor it into the canonical `src/` layout without prompting.
 - **In-place edits:** Never create versioned files (e.g., `main_v2.py`). Edit source files directly. Prefer targeted, incremental edits over full-file replacements to avoid accidentally removing imports or helper logic.
+- **Cleanup before redo:** Before attempting a new approach, remove all artifacts, temp files, and partial state from failed attempts. Never layer new work on top of broken state.
 - **Defensive coding:** All new functions must include input validation and documentation (Google-style docstrings for Python, JSDoc for Node.js).
 - **No abandonment:** Never stop troubleshooting until all functionality works and all errors are resolved.
 - **Non-interactive commands:** Always use non-interactive flags — e.g., `git --no-pager log`, `git commit -m "message"`, `vitest run`.
