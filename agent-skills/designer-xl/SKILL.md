@@ -229,6 +229,8 @@ Match-and-refuse: if about to write any of these, stop and rewrite entirely.
 
 **AP-36 · Floating Icons** — Icons larger than line-height of accompanying text.
 
+**AP-37 · Scroll Library Collision** — Adding `scroll-smooth` in `<html>` or `<body>` while a JS scroll library (Lenis, GSAP, etc.) is initialized. They fight for scroll control, causing stuttering. Native CSS smooth scrolling must be removed if a JS scroll library is used.
+
 **Anti-Pattern Override Rule:** visual direction exemption must be specific and named.
 
 ### 4-G. 
