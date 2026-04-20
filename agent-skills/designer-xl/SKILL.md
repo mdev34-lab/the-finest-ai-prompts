@@ -779,7 +779,7 @@ Use these as starting hypotheses, not classifications. Confirm with the brief.
 **Google Fonts reflex:** Inter, Roboto, Open Sans, Lato, Montserrat, Poppins, Raleway, Nunito, Rubik, Ubuntu
 **Reflex "distinctive":** Syne, Fraunces, Newsreader, Lora, Crimson/Crimson Pro, Cormorant, DM Sans, DM Serif Display, Outfit, Plus Jakarta Sans, Instrument Sans/Serif
 **System defaults:** Arial, Helvetica (Helvetica Neue exempt for Swiss), system-ui
-**Developer defaults:** IBM Plex Sans/Mono, Space Grotesk (widely overused as "distinctive"), Space Mono
+**Developer defaults:** IBM Plex Sans/Mono, Space Grotesk (widely overused as "distinctive"), Space Mono, Aeonik
 
 **Space Grotesk:** Assigned to III-D and III-E where architecturally correct. On watch list.
 
