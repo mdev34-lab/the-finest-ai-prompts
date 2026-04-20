@@ -718,6 +718,8 @@ Use these as starting hypotheses, not classifications. Confirm with the brief.
 **Pairing Principles:** Contrast on multiple axes: Serif+Sans (structure), Geometric+Humanist (personality), Condensed display+Wide body (proportion). Never pair similar-but-not-identical fonts — they create tension without hierarchy. Often one font family in multiple weights > two competing typefaces.
 
 **Web Font Loading:** `font-display: swap` always. Match fallback metrics with `size-adjust`, `ascent-override`, `descent-override`. Max 2–3 font families per project.
+
+**Font Fallbacks:** NEVER fallback to bare `sans-serif`. Specify proper fallbacks: `Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial` (layered system stack). For serif: `Georgia, "Times New Roman", Times`. For mono: `"SF Mono", Monaco, Consolas, "Liberation Mono", monospace`.
 **OpenType Polish:** `font-variant-numeric: tabular-nums` for data tables. `diagonal-fractions` for recipes. `all-small-caps` for abbreviations. `font-kerning: normal` explicitly.
 **Dark Mode Typography:** Add 0.05–0.1 to line-height for dark bg. Consider reducing font weight by 50 (400→350) for body to compensate perceived weight increase.
 
