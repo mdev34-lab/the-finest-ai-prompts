@@ -231,6 +231,16 @@ Match-and-refuse: if about to write any of these, stop and rewrite entirely.
 
 **AP-37 · Scroll Library Collision** — Adding `scroll-smooth` in `<html>` or `<body>` while a JS scroll library (Lenis, GSAP, etc.) is initialized. They fight for scroll control, causing stuttering. Native CSS smooth scrolling must be removed if a JS scroll library is used.
 
+**AP-38 · Footer Obstruction** — Fixed-position footer physically overlapping text/content, creating "dead zones" where users cannot read or interact. Leave minimum 60px bottom margin or use sticky header only.
+
+**AP-39 · Baseline Stutter** — Form fields, dropdowns, or inputs not sharing perfectly aligned baselines with labels above them. Creates visual "stutter" in scan. Align all field labels and inputs on unified baseline.
+
+**AP-40 · Mixed Material Logic** — Inconsistent depth treatment within same region (e.g., Share button has top-down light highlight but input fields are flat). "Material" surfaces must share consistent lighting direction.
+
+**AP-41 · Sub-Threshold Metadata** — UI metadata labels (WORDS, CHARS, badges) below 12px. Violates AP-22. Minimum 12px for accessibility.
+
+**AP-42 · Line-Height Tension** — Large headings (≥32px) with insufficient line-height causing descenders to touch next line ascenders. Use leading-tight (110-120%) for display type.
+
 **Anti-Pattern Override Rule:** visual direction exemption must be specific and named.
 
 ### 4-G. 
@@ -347,6 +357,8 @@ No extensions, no blending tables. If you borrow, name the source and the specif
 ### A2. Premium Surface Patterns
 
 **Double-Bezel (Doppelrand):** Premium/studio/luxury. Outer: `bg-black/5 ring-1 rounded-[2rem]`. Inner: `shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]` at `rounded-[1.5rem]`. Button-in-button variant: icon in `w-8 h-8 rounded-full bg-black/5` inside larger button.
+
+**Toolbar Refinement:** High-density toolbars (formatting buttons, dividers) require Double-Bezel treatment. Dividers must not touch button edges — leave breathing room. This is the "command center" of editor interfaces.
 **Liquid Glass Refraction:** OLED/dark premium. `bg-white/5 backdrop-blur-2xl` + `border border-white/10` + `shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]`.
 **Eyebrow Tags:** Editorial/studio. `text-[10px] uppercase tracking-[0.2em]` muted accent, 16–24px above heading.
 
@@ -442,6 +454,10 @@ Primary (60%) dominant atmosphere. Secondary (30%) support. Accent (10%) CTAs.
 **Semantic Consistency:** Strict mapping — **Blue** (Trust/System), **Red** (Danger/Urgency), **Yellow** (Warning), **Green** (Success/Complete).
 
 **Single-Family Branding:** Start with ONE primary brand color. Derive entire UI from its tints (backgrounds) and shades (text). Avoid AI-generated clashing hues.
+
+**Palette Fragmentation:** Using 4+ distinct shades of same hue family (e.g., purple logo + royal blue button + periwinkle badge + sky blue highlight). Creates "Frankenstein" brand. Use single-family palette exclusively.
+
+**Glassmorphism Failure:** Claiming glassmorphic panels but using opaque white with no visible refraction/tint. True glass requires `bg-white/5-15`, `backdrop-blur`, and visible border tint to show layers behind.
 
 ### D. Trust & Conversion Psychology
 
