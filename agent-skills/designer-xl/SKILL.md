@@ -219,6 +219,16 @@ Match-and-refuse: if about to write any of these, stop and rewrite entirely.
 **AP-30** · Undefined animation reference — `animation:` with no `@keyframes`. See §15-L L-6 for correct marquee.
 **AP-31 · Template Feature Grid** — ≥3 identical card structures in grid. Max ONE standard card row; vary all others.
 
+**AP-32 · Professional Emoji Usage** — Using standard emojis as primary UI icons in institutional/SaaS/fintech. *Exemption: Personal/Social apps.*
+
+**AP-33 · Hard Default Shadows** — Using default CSS shadows (`0 4px 6px -1px rgba(0,0,0,0.1)`). Use "whisper" style (opacity <5%, blur >20px) or tinted toward background.
+
+**AP-34 · Redundant Navigation Arrows** — "Left/Right" arrows on mobile carousels where swipe is primary affordance. *Exemption: Accessibility.*
+
+**AP-35 · Round-Top Bar Charts** — Significantly rounded top corners obscure data points. Dribbble-bait, not functional.
+
+**AP-36 · Floating Icons** — Icons larger than line-height of accompanying text.
+
 **Anti-Pattern Override Rule:** visual direction exemption must be specific and named.
 
 ### 4-G. 
@@ -302,6 +312,12 @@ No extensions, no blending tables. If you borrow, name the source and the specif
 
 **Buttons — Semantic Choice (CRITICAL):** `<a>` for navigation, `<button>` for form/state changes. Default: bg + text (≥ 4.5:1). Hover: shade shift. Active: `scale-[0.98]`. Focus: §9. Disabled: `opacity-50 cursor-not-allowed`.
 
+**Icon-Line Rule:** UI icons sized to match `line-height` of associated text (24px icon for 24px line-height).
+
+**Padding Proportion (1:2 Rule):** Standard buttons: horizontal padding exactly double vertical (`py-4 px-8`).
+
+**Ghost Button Priority:** Use ghost buttons (no background until hover) for secondary actions to maintain clear hierarchy against primary CTA.
+
 **visual direction Button Personalities (with key CSS hints):**
 - **Academia:** Brass gradient, Cinzel font, uppercase, `text-shadow` engraved effect
 - **Art Deco:** Gold gradient, geometric chamfered ends, symmetrical
@@ -368,6 +384,10 @@ Landing Pages: (1) Sticky Blurred Nav, (2) Hero Section, (3) Social Proof, (4) C
 
 **Data Visualization Requirements:** Charts must include axes, labels, and values — not decoration. Unlabeled bars communicate nothing. Data viz requires context to be functional.
 
+**Functional Charts:** Charts must include **Vertical (Y) Axis** with labeled increments. Decorative "sparklines" forbidden for primary data display.
+
+**Temporal Alignment:** X-axis labels must strictly match data points (7 labels for 7 days of data).
+
 **If non-landing-page:** Adapt accordingly. Never "homepage" a functional UI.
 
 **HTML/Tailwind Block:** DOCTYPE mandatory. Tailwind CDN in `<head>`. Tailwind config for fonts. NO markdown in HTML (`<strong>` not `**text**`). Semantic HTML landmarks. Direct hex codes in Tailwind brackets. Feather Icons (`data-feather`, `feather.replace()` in try/catch). All interactive states. Mobile-responsive. Performance: lazy-load images (`loading="lazy"`), `font-display: swap`, `prefers-reduced-motion`, IntersectionObserver with `unobserve()`, `DOMContentLoaded`, custom scrollbar. CSS variables: define only what you use. Metadata: `<meta description>`, OG tags.
@@ -414,6 +434,12 @@ Landing Pages: (1) Sticky Blurred Nav, (2) Hero Section, (3) Social Proof, (4) C
 Primary (60%) dominant atmosphere. Secondary (30%) support. Accent (10%) CTAs.
 **Semantic system:** Surface scale (bg progression). Brand accent variants: bright/mid/deep/dark/glow/subtle. `brand/10` icon bg, `brand/15` hover, `brand/20` borders. Near-white max brightness in dark. Glow only on primary CTAs.
 **Discipline:** Match visual direction. Limit to ONE accent (authoritative/premium). Chromatic restraint (3-4 max). Each color earns presence. #00CFFF banned as general accent.
+
+**Dark Mode Elevation:** In dark mode, elevation signaled by **lightening** surface, not shadows. Elevate cards by increasing Lightness (L) in OKLCH by 2–5% relative to base background.
+
+**Semantic Consistency:** Strict mapping — **Blue** (Trust/System), **Red** (Danger/Urgency), **Yellow** (Warning), **Green** (Success/Complete).
+
+**Single-Family Branding:** Start with ONE primary brand color. Derive entire UI from its tints (backgrounds) and shades (text). Avoid AI-generated clashing hues.
 
 ### D. Trust & Conversion Psychology
 
@@ -666,6 +692,10 @@ Use these as starting hypotheses, not classifications. Confirm with the brief.
 - `tracking-[0.15em]` — Art Deco/Academia uppercase labels
 - `tracking-[0.2em]` — Premium caps metadata
 - `tracking-[0.3em]` — Art Deco section overlines
+
+**Display Tightening (Pro-Header Hack):** For H1/H2 (≥32px): `letter-spacing: -2% to -3%` (`tracking-[-0.02em]`), `line-height: 110%–120%` (`leading-tight`). Large type feels "loose" at defaults — tightening creates professional "Studio" feel.
+
+**The Six-Size Rule:** Limit entire page to maximum six distinct font sizes for rhythmic consistency.
 
 **Pairing Principles:** Contrast on multiple axes: Serif+Sans (structure), Geometric+Humanist (personality), Condensed display+Wide body (proportion). Never pair similar-but-not-identical fonts — they create tension without hierarchy. Often one font family in multiple weights > two competing typefaces.
 
@@ -1105,6 +1135,15 @@ Remove `scroll-smooth` from html tag to avoid conflicts. `lerp:0.1` gives respon
 - **Directional logic:** Consistent per page. Mixed = chaos.
 - **Performance:** Only `transform` + `opacity`. `clip-path`/`scale` for size. See §15-F.
 
+#### L-8. Readability Overlays
+- **Progressive Blur + Linear Gradient:** Text over images (Hero sections) use 20px blur with `to-bottom` black-to-transparent gradient (opacity 0.6 → 0). Not flat semi-transparent overlay.
+
+#### L-9. Action Confirmation (The "Copied!" Rule)
+- Every state-change action (Copy, Save, Delete) must trigger immediate micro-interaction confirmation (e.g., chip sliding up "Copied!", red dot on "Saved" tab).
+
+#### L-10. Progressive Disclosure
+- Hide "Advanced Options" (e.g., password protection) behind toggle or modal. Lead with "Intent-First" field (URL input).
+
 ---
 
 ## 16. Component Recipes
@@ -1159,6 +1198,23 @@ Alternative for sticky sidebar:
 ```
 
 **Tailwind Config:** Include `tailwind.config` block after CDN with fontFamily (display/body/mono/label) and animation keyframes per visual direction. See visual direction specs for font names and §14 easing for motion parameters.
+
+---
+
+## 20. USER INTENT LOGIC (Resolution Protocol)
+
+Before generating any layout, perform an **Intent Audit**:
+
+### 1. Primary Intent Detection
+- **Search-First:** Center large, clear input.
+- **Browse-First:** Lead with 12-column bento/grid of content cards.
+- **Manage-First:** Lead with KPIs and data tables.
+
+### 2. Affordance Check
+- Are clickable elements grouped? (e.g., Nav items for "Food" and "Drinks" in shared container, "Settings" separated)
+
+### 3. Flow-Gap Analysis
+- Does the flow have "Skip" or "Back" option? (e.g., Onboarding screen for "Allergies" must have "Skip" for users without allergies)
 
 ---
 
