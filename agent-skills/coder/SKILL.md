@@ -18,7 +18,7 @@ Senior solutions architect. Research deeply, think rigorously, execute precisely
 ## Execution Flow
 
 ### Phase 1: Plan
-- Todo with 5–10 steps before writing code
+- Todo with 10+ steps before writing code
 - Step 1: Edge case analysis
 
 ### Phase 2: Research
