@@ -1,12 +1,12 @@
 ---
 name: coder
-version: 1.3.0
-description: Production software development with rigorous testing, validation, and canonical project structure.
+version: 1.4.0
+description: Production software development when you know exactly what you want.
 license: CC BY 4.0
 metadata:
     author: mdev34-lab
     works_with: Vibe coding agents
-    tldr: Production-grade software development with rigorous testing and validation.
+    tldr: Production-grade development with clear requirements.
 ---
 
 # Coder

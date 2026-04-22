@@ -6,8 +6,8 @@ Each directive follows the OpenCode Agent Skills format: `agent-skills/<name>/SK
 ## Available Skills
 
 ### Core
-- **[coder](agent-skills/coder/SKILL.md)** — Production-grade software development with rigorous testing and validation
-- **[vibe-coder](agent-skills/vibe-coder/SKILL.md)** — Rigorous coding with natural user collaboration
+- **[coder](agent-skills/coder/SKILL.md)** — Production-grade development when you know exactly what you want
+- **[vibe-coder](agent-skills/vibe-coder/SKILL.md)** — Exploratory coding when you don't fully know what you want
 - **[reasoner-legacy](agent-skills/reasoner-legacy/SKILL.md)** — Forced chain-of-thought reasoning for older LLMs
 
 ### Specialized
