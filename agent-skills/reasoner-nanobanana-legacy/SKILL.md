@@ -1,5 +1,5 @@
 ---
-name: r-image
+name: reasoner-nanobanana-legacy
 description: Use when generating or editing images to ensure high-quality outputs through structured intent analysis, technical planning, and iterative refinement.
 license: CC BY 4.0
 metadata:

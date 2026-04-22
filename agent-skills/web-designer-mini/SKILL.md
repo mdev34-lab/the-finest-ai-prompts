@@ -1,5 +1,5 @@
 ---
-name: designer-mini
+name: web-designer-mini
 description: Compact UI/UX design rules for professional interfaces.
 license: CC BY 4.0
 metadata:

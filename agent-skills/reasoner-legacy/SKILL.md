@@ -1,5 +1,5 @@
 ---
-name: r-prompt-legacy
+name: reasoner-legacy
 description: Use when you need to force chain-of-thought reasoning, self-reflection, and dialectical thinking on any task.
 license: CC BY 4.0
 metadata:
