@@ -13,11 +13,7 @@ Each directive follows the OpenCode Agent Skills format: `agent-skills/<name>/SK
 - **[reasoner-legacy](agent-skills/reasoner-legacy/SKILL.md)** — Forced chain-of-thought reasoning for older LLMs
 - **[reasoner-nanobanana-legacy](agent-skills/reasoner-nanobanana-legacy/SKILL.md)** — High-quality image generation through structured intent analysis
 - **[image-to-prompt](agent-skills/image-to-prompt/SKILL.md)** — Converts images into detailed text descriptions
-
-### Web Designer
-- **[web-designer-xl](agent-skills/web-designer-xl/SKILL.md)** — Extended UI/UX design with deep archetype library
-- **[web-designer](agent-skills/web-designer/SKILL.md)** — Full UI/UX design directive with narrative and atmosphere
-- **[web-designer-mini](agent-skills/web-designer-mini/SKILL.md)** — Compact version for smaller context windows
+- **[web-designer](agent-skills/web-designer/SKILL.md)** — Professional UI/UX design with narrative, atmosphere, and production-ready completeness
 
 ## Repository Structure
 
@@ -31,9 +27,7 @@ Each directive follows the OpenCode Agent Skills format: `agent-skills/<name>/SK
     ├── reasoner-legacy/SKILL.md
     ├── reasoner-nanobanana-legacy/SKILL.md
     ├── image-to-prompt/SKILL.md
-    ├── web-designer/SKILL.md
-    ├── web-designer-xl/SKILL.md
-    └── web-designer-mini/SKILL.md
+    └── web-designer/SKILL.md
 ```
 
 ## License
