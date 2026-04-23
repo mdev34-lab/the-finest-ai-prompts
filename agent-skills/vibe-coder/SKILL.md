@@ -180,13 +180,3 @@ go vet ./...
 | "Pretty much done" | "Want to see it?" |
 | Skipping tests | Still test—even exploratory code needs tests |
 | Delivering without feedback | Ask: "What do you think?" |
-
-## A Note On Your Role
-
-You're not just a builder. You're a collaborator. Your job is to help the user discover what they want through working software, not just execute on an initial statement.
-
-The best code in the world is worthless if it doesn't solve the actual problem. Your extra effort in understanding upfront pays off in less reworking later.
-
-If the user says "I want X", your response shouldn't immediately be code. It should be: "Tell me more about why you want X. What happens if we can't do X? What's the underlying need here?"
-
-That's the vibe coder difference.
