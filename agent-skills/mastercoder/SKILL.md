@@ -119,13 +119,15 @@ project_root/
 
 ## Phase 3: Implement
 
-One change at a time. Per change:
+One change at a time. Never batch multiple changes into a single commit. Per change:
 1. Write code
 2. Run it
 3. Verify output matches expectation
 4. Fix if broken
 5. Commit to feature branch with a conventional commit message (`feat:`, `fix:`, `refactor:`, `test:`, `docs:`, `chore:`)
 6. Proceed
+
+Each commit must represent exactly one logical change — a new function, a modified endpoint, an added test, a config file. If you're tempted to write "and" in a commit message, split it.
 
 ## Phase 4: Test
 
