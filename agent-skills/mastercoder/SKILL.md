@@ -3,7 +3,7 @@ name: mastercoder
 description: >
   Use when an implementation plan already exists and the task is to write production code, tests, and validate the build.
   Executes a masterplanner-produced plan step by step. Every implementation is delivered with: clean Git history on a feature branch,
-  complete production-grade project structure (CI/CD, Dockerfile, Makefile, docs, lint/type/test tooling),
+  complete production-grade project structure (CI/CD, Makefile, docs, lint/type/test tooling, Dockerfile if service),
   unit + integration tests at ≥90% coverage, and zero high-severity vulnerabilities.
   Covers Python (uv/ruff/mypy), Node.js (bun/eslint), Go (go toolchain).
   NEVER works on master/main — always creates a feature branch. Initializes Git repo if none exists.
@@ -59,8 +59,8 @@ project_root/
 │   └── integration/
 ├── scripts/
 │   └── seed.py
-├── Dockerfile
-├── docker-compose.yml      # app + db + cache if applicable
+├── Dockerfile              # if service; skip for libs/CLIs
+├── docker-compose.yml      # if service; skip for libs/CLIs
 └── docs/
     └── api.md
 ```
@@ -84,8 +84,8 @@ project_root/
 │   ├── unit/
 │   └── integration/
 ├── scripts/
-├── Dockerfile
-├── docker-compose.yml
+├── Dockerfile              # if service; skip for libs/CLIs
+├── docker-compose.yml      # if service; skip for libs/CLIs
 └── docs/
     └── api.md
 ```
@@ -110,8 +110,8 @@ project_root/
 ├── tests/
 │   ├── integration/
 │   └── e2e/
-├── Dockerfile
-├── docker-compose.yml
+├── Dockerfile              # if service; skip for libs/CLIs
+├── docker-compose.yml      # if service; skip for libs/CLIs
 ├── .golangci.yml
 └── docs/
     └── api.md
@@ -143,7 +143,7 @@ One change at a time. Per change:
 - Tests: `pytest` / `bun test` / `go test`
 - Audit: `uv audit` / `bun audit` / `go mod verify`
 - Build: `pip install -e .` / `bun run build` / `go build`
-- Docker build: `docker build .` succeeds
+- If service: Docker build (`docker build .`) succeeds
 - App starts and handles real requests
 
 ## Phase 6: Deliver
@@ -209,7 +209,7 @@ One change at a time. Per change:
 
 ## Quality Gates
 - [ ] Git repo initialized with feature branch (not master/main)
-- [ ] Complete project structure including CI/CD, Docker, docs
+- [ ] Complete project structure including CI/CD, docs, Docker if service
 - [ ] `.env.example` with all documented env vars
 - [ ] All edge cases have explicit tests
 - [ ] Every test passes (100%)
