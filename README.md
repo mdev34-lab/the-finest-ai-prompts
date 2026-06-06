@@ -10,12 +10,6 @@ Each directive follows the OpenCode Agent Skills format: `agent-skills/<name>/SK
 - **[image-to-prompt](agent-skills/image-to-prompt/SKILL.md)** — Converts images into detailed text descriptions
 - **[web-designer](agent-skills/web-designer/SKILL.md)** — Professional UI/UX design with narrative, atmosphere, and production-ready completeness
 
-## Available Plugins
-
-- **[memory](plugins/memory.ts)** — OpenCode plugin for persistent, session-independent memory. Registers tools to store and retrieve facts, decisions, and preferences across sessions (local `.memory/` and global `~/.config/opencode/memory/`).
-
-> Plugin files are single top-level files (no subdirectory) to match OpenCode's auto-discovery glob `*.{ts,js}`.
-
 ## Repository Structure
 
 ```
@@ -27,10 +21,6 @@ Each directive follows the OpenCode Agent Skills format: `agent-skills/<name>/SK
 │   ├── mastercoder/SKILL.md
 │   ├── image-to-prompt/SKILL.md
 │   └── web-designer/SKILL.md
-└── plugins/
-    ├── README.md
-    ├── memory.ts
-    └── memory.package.sample.json
 ```
 
 ## License
