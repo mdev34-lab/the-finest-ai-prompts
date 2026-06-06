@@ -9,6 +9,7 @@ Each directive follows the OpenCode Agent Skills format: `agent-skills/<name>/SK
 - **[mastercoder](agent-skills/mastercoder/SKILL.md)** — Production code implementation from a structured plan. Tests, validates, delivers.
 - **[image-to-prompt](agent-skills/image-to-prompt/SKILL.md)** — Converts images into detailed text descriptions
 - **[web-designer](agent-skills/web-designer/SKILL.md)** — Professional UI/UX design with narrative, atmosphere, and production-ready completeness
+- **[memory](agent-skills/memory/SKILL.md)** — Persistent, session-independent memory for LLM agents: store, recall, and manage facts, decisions, and preferences across sessions
 
 ## Repository Structure
 
@@ -20,7 +21,8 @@ Each directive follows the OpenCode Agent Skills format: `agent-skills/<name>/SK
     ├── masterplanner/SKILL.md
     ├── mastercoder/SKILL.md
     ├── image-to-prompt/SKILL.md
-    └── web-designer/SKILL.md
+    ├── web-designer/SKILL.md
+    └── memory/SKILL.md
 ```
 
 ## License
