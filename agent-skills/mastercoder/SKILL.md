@@ -2,7 +2,7 @@
 name: mastercoder
 description: >
   Use when an implementation plan already exists and the task is to write production code, tests, and validate the build.
-  Executes a todowrite plan step by step. Each function gets a unit test. Each API endpoint gets an integration test.
+  Executes a masterplanner-produced plan step by step. Each function gets a unit test. Each API endpoint gets an integration test.
   Runs full toolchain (lint, typecheck, test, audit) before delivery. Does NOT clarify requirements or create plans — use masterplanner for that.
   Covers Python (uv/ruff/mypy), Node.js (bun/eslint), Go (go toolchain).
   Refuses to deliver without passing tests, ≥90% coverage, zero high vulns, and actionable error handling.
