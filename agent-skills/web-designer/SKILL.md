@@ -1,6 +1,13 @@
 ---
 name: web-designer
-description: Use when designing professional, brand-building UI/UX interfaces that require narrative, atmosphere, and production-ready technical completeness.
+description: >
+  Use for professional, brand-building UI/UX design that demands narrative, atmosphere, and production-ready polish.
+  Handles the full design workflow: brand identity (logos, colors, typography, design tokens), responsive page/component design,
+  design system creation, accessibility (WCAG AA/AAA), dark/light mode, micro-interactions, and developer-ready output
+  (tailwind, CSS, HTML, React components, animation specs, asset exports).
+  Output includes visual mockups, interactive prototypes, style guides, and production code.
+  Do NOT use for backend, API, or non-visual implementation — use mastercoder for that.
+  Do NOT use for prompt engineering or image transcription — use image-to-prompt for that.
 license: CC BY 4.0
 metadata:
     author: mdev34-lab
