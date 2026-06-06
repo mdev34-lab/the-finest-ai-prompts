@@ -31,16 +31,6 @@ yarn-error.log*
 node_modules/
 **/node_modules/
 
-# Lock files in plugins/ (ephemeral for type-checking)
-plugins/bun.lock
-plugins/bun.lockb
-plugins/package-lock.json
-plugins/yarn.lock
-plugins/pnpm-lock.yaml
-plugins/**/bun.lock
-plugins/**/bun.lockb
-plugins/**/package-lock.json
-
 # Temporary files
 *.tmp
 *.temp
