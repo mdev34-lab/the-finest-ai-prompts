@@ -185,6 +185,39 @@ const textFromParts = (parts: unknown): string => {
     .trim()
 }
 
+const extractLatestUserText = (input: unknown): string => {
+  const messages: unknown[] =
+    typeof input === "object" && input !== null && "messages" in input
+      ? ((input as { messages?: unknown[] }).messages ?? [])
+      : []
+  for (let i = messages.length - 1; i >= 0; i--) {
+    const m = messages[i] as Record<string, unknown> | null
+    if (!m) continue
+    const info = (m.info as Record<string, unknown> | undefined) ?? undefined
+    const role = (info?.role as string | undefined) ?? (m.role as string | undefined)
+    if (role !== "user") continue
+    if (Array.isArray(m.parts)) {
+      const text = textFromParts(m.parts)
+      if (text) return text
+    }
+    if (typeof m.content === "string" && m.content.trim()) return m.content.trim()
+    if (Array.isArray(m.content)) {
+      const text = m.content
+        .map((c) => {
+          if (typeof c !== "object" || !c) return ""
+          if ((c as { type?: unknown }).type !== "text") return ""
+          const t = (c as { text?: unknown }).text
+          return typeof t === "string" ? t : ""
+        })
+        .filter(Boolean)
+        .join("\n")
+        .trim()
+      if (text) return text
+    }
+  }
+  return ""
+}
+
 export const MemoryPlugin: Plugin = async (ctx, options?: PluginOptions) => {
   const autoInject = options?.autoInject ?? true
   const limit = options?.limit ?? 5
@@ -365,21 +398,26 @@ export const MemoryPlugin: Plugin = async (ctx, options?: PluginOptions) => {
       latestPrompt = text
     },
 
-    "experimental.chat.system.transform": async (_input, output) => {
+    "experimental.chat.system.transform": async (input, output) => {
       if (!autoInject) return
-      if (!latestPrompt) return
+
+      const fresh = extractLatestUserText(input)
+      const query = (fresh || latestPrompt).trim()
+      if (!query) return
 
       const pack = await withTimeout(
         Promise.resolve().then(() => {
           const memories = loadMemories(scope, ctx.worktree)
-          return buildContext(memories, latestPrompt, limit, maxChars)
+          return buildContext(memories, query, limit, maxChars)
         }),
         timeoutMs,
       )
 
       if (!pack) return
+      const stamp = new Date().toISOString().slice(11, 19)
       output.system.push(
-        `## Relevant Memory\n\n${pack}\n\nUse these memories only when relevant. Do not mention this block unless asked.`,
+        `## Relevant Memory (auto-injected @${stamp})\n\n${pack}\n\n` +
+          `Use these memories only when relevant. Do not mention this block unless asked.`,
       )
     },
   }
