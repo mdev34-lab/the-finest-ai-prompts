@@ -20,9 +20,16 @@ metadata:
 
 You have access to a persistent file-based memory store. Memories survive across sessions and conversations. Use them to avoid repeating questions, track decisions, remember user preferences, and accumulate project-specific context over time.
 
-## Memory Store Location
+## Memory Store Locations
 
-Memories are stored in `memories/` at the workspace root. Each memory is a single `.md` file named `<timestamp>-<slug>.md`.
+Two independent stores:
+
+| Store | Path | Scope |
+|-------|------|-------|
+| **Local** | `.memory/` in project root | Per-project: decisions, architecture, project-specific conventions |
+| **Global** | `~/.config/opencode/memory/` | Cross-project: user preferences, tooling choices, workflow habits, personal facts |
+
+Each memory is a single `.md` file named `<timestamp>-<slug>.md` inside its store.
 
 ## Memory Schema
 
@@ -44,10 +51,11 @@ The body is free-form markdown describing the memory.
 
 When you learn something that will be useful later (user preference, project decision, important fact):
 
-1. Generate an id from the current ISO timestamp.
-2. Create a slug from the content (3-5 words, kebab-case).
-3. Write file to `memories/<id>-<slug>.md`.
-4. Confirm to user: "Remembered: <short summary>".
+1. **Choose store:** project-scoped → `.memory/`, user/cross-project → `~/.config/opencode/memory/`. Default: local.
+2. Generate an id from the current ISO timestamp.
+3. Create a slug from the content (3-5 words, kebab-case).
+4. Write file to `<store>/<id>-<slug>.md`.
+5. Confirm to user: "Remembered (<local|global>): <short summary>".
 
 **Determine type:**
 - `fact` — objective information about the project, domain, or process
@@ -69,9 +77,9 @@ Use recall when:
 - You need context about a past decision
 - You're unsure about a user preference
 
-**Recall by tag:** search `memories/` for files containing specific tags in frontmatter
-**Recall by keyword:** grep the `memories/` directory for keywords in body text
-**Recall by type:** filter by `type:` in frontmatter
+**Recall by tag:** search both stores for files containing specific tags in frontmatter
+**Recall by keyword:** grep both store directories for keywords in body text
+**Recall by type:** filter by `type:` in frontmatter across both stores
 
 Present results as a concise summary. Include the id and a one-line summary for each. Ask the user if they want full details for any specific memory.
 
@@ -79,24 +87,27 @@ Present results as a concise summary. Include the id and a one-line summary for 
 
 When information changes or you learn more detail:
 
-1. Read the existing memory file.
-2. Update the `updated` timestamp in frontmatter.
-3. Append or revise the body as needed.
-4. Preserve original `id` and `source`.
+1. Locate the file (check both stores).
+2. Read the existing memory file.
+3. Update the `updated` timestamp in frontmatter.
+4. Append or revise the body as needed.
+5. Preserve original `id` and `source`.
 
 ### 4. forget — remove a memory
 
 When a memory is obsolete or incorrect:
 
 1. Confirm with user before deleting.
-2. Move file to `memories/.trash/<id>-<slug>.md` (soft delete).
+2. Move file to `<store>/.trash/<id>-<slug>.md` (soft delete in same store).
 3. Confirm removal.
 
 ### 5. list — enumerate memories
 
-List all memories, optionally filtered:
+List memories from either store, optionally filtered:
 
-- `list` — all memories sorted by recency
+- `list` — all memories from both stores sorted by recency
+- `list local` — only local (`.memory/`)
+- `list global` — only global (`~/.config/opencode/memory/`)
 - `list type:decision` — only decisions
 - `list tag:user/editor` — only user editor preferences
 - `list updated:7d` — memories updated in last 7 days
@@ -105,7 +116,7 @@ List all memories, optionally filtered:
 
 If memories exceed 50 files:
 
-- Archive untouched memories older than 90 days to `memories/.archive/`
+- Archive untouched memories older than 90 days to `<store>/.archive/`
 - Merge duplicate or overlapping memories
 - Prompt user before bulk operations
 
@@ -113,10 +124,10 @@ If memories exceed 50 files:
 
 At the start of each session:
 
-1. Check if `memories/` exists and has files.
-2. Run `recall` with the current task context to fetch relevant memories.
+1. Check both stores exist and have files.
+2. Run `recall` with the current task context across both stores.
 3. Present a brief "Context loaded" summary showing:
-   - Total stored memories
+   - Total stored memories (local + global)
    - Most relevant ones for this task
    - Last session's active memories
 
@@ -131,22 +142,39 @@ At the start of each session:
 
 ## Example
 
-### Storing:
-User says: "I prefer using pnpm over npm for this project."
+### Storing local (project-specific):
+User says: "We decided to use FastAPI over Flask for this project."
 
-You write `memories/20260506-143021-pnpm-preference.md`:
+You write `.memory/20260506-143021-fastapi-decision.md`:
 ```markdown
 ---
 id: 20260506-143021
-type: preference
-tags: [user/tooling, project/package-manager]
+type: decision
+tags: [project/framework, project/api]
 updated: 2026-05-06T14:30:21Z
 source: user stated in chat
 ---
 
-User prefers pnpm over npm for this project.
+User chose FastAPI over Flask for this project.
+Reason: native async support and automatic OpenAPI docs.
+```
+
+### Storing global (cross-project):
+User says: "I prefer using pnpm over npm in general."
+
+You write `~/.config/opencode/memory/20260506-143150-pnpm-preference.md`:
+```markdown
+---
+id: 20260506-143150
+type: preference
+tags: [user/tooling, user/package-manager]
+updated: 2026-05-06T14:31:50Z
+source: user stated in chat
+---
+
+User prefers pnpm over npm across all projects.
 They specifically requested pnpm for dependency management.
 ```
 
 ### Retrieving:
-Later the user asks "should I use npm or yarn here?" You find the memory and respond: "Based on our previous conversation, you prefer **pnpm** for this project."
+Later the user asks "what package manager should I use?" Search both stores, find the global preference, and respond: "Based on our previous conversation, you prefer **pnpm**."
