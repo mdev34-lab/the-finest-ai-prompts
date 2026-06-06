@@ -7,7 +7,6 @@ Each directive follows the OpenCode Agent Skills format: `agent-skills/<name>/SK
 
 - **[masterplanner](agent-skills/masterplanner/SKILL.md)** — Clarification, research, and planning. Produces a structured plan for mastercoder.
 - **[mastercoder](agent-skills/mastercoder/SKILL.md)** — Production code implementation from a structured plan. Tests, validates, delivers.
-- **[reasoner-nanobanana-legacy](agent-skills/reasoner-nanobanana-legacy/SKILL.md)** — High-quality image generation through structured intent analysis
 - **[image-to-prompt](agent-skills/image-to-prompt/SKILL.md)** — Converts images into detailed text descriptions
 - **[web-designer](agent-skills/web-designer/SKILL.md)** — Professional UI/UX design with narrative, atmosphere, and production-ready completeness
 
@@ -21,7 +20,6 @@ Each directive follows the OpenCode Agent Skills format: `agent-skills/<name>/SK
     ├── masterplanner/SKILL.md
     ├── mastercoder/SKILL.md
     ├── image-to-prompt/SKILL.md
-    ├── reasoner-nanobanana-legacy/SKILL.md
     └── web-designer/SKILL.md
 ```
 
