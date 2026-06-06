@@ -12,6 +12,9 @@ import {
 
 const GLOBAL_DIR = join(homedir(), ".config", "opencode", "memory")
 
+const MAX_MATCHERS = 10
+const MAX_MATCHER_LENGTH = 200
+
 type MemoryType = "fact" | "decision" | "preference" | "observation" | "task"
 
 interface Memory {
@@ -19,6 +22,7 @@ interface Memory {
   scope: "local" | "global"
   type: MemoryType
   tags: string[]
+  matchers: string[]
   body: string
 }
 
@@ -45,14 +49,25 @@ function fileName(): string {
 }
 
 function frontmatter(data: Record<string, unknown>): string {
-  const yaml = Object.entries(data)
-    .map(([k, v]) => {
-      if (Array.isArray(v)) return `${k}: [${v.join(", ")}]`
-      if (typeof v === "string") return `${k}: ${v}`
-      return `${k}: ${String(v)}`
-    })
-    .join("\n")
-  return `---\n${yaml}\n---\n\n`
+  return `---\n${JSON.stringify(data, null, 2)}\n---\n\n`
+}
+
+function parseFrontmatter(raw: string): Record<string, unknown> | null {
+  const m = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/)
+  if (!m) return null
+  try {
+    const parsed = JSON.parse(m[1])
+    return typeof parsed === "object" && parsed !== null
+      ? (parsed as Record<string, unknown>)
+      : null
+  } catch {
+    return null
+  }
+}
+
+function asStringArray(v: unknown): string[] {
+  if (!Array.isArray(v)) return []
+  return v.filter((x): x is string => typeof x === "string")
 }
 
 function loadMemories(scope: "local" | "global" | "both", worktree: string): Memory[] {
@@ -69,30 +84,45 @@ function loadMemories(scope: "local" | "global" | "both", worktree: string): Mem
     for (const f of files) {
       const full = join(dir, f)
       const raw = readFileSync(full, "utf-8")
-      const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/)
-      if (!fmMatch) continue
-      const fm = fmMatch[1]
-      const body = fmMatch[2].trim()
-      const typeMatch = fm.match(/type:\s*(\w+)/)
-      const tagsMatch = fm.match(/tags:\s*\[([^\]]*)\]/)
-      const type = (typeMatch?.[1] as MemoryType) ?? "fact"
-      const tags = tagsMatch?.[1].split(",").map((t) => t.trim()).filter(Boolean) ?? []
-      out.push({ path: full, scope: s, type, tags, body })
+      const fm = parseFrontmatter(raw)
+      const body = raw.replace(/^---[\s\S]*?---\n?/, "").trim()
+      const type = (fm?.type as MemoryType) ?? "fact"
+      out.push({
+        path: full,
+        scope: s,
+        type,
+        tags: asStringArray(fm?.tags),
+        matchers: asStringArray(fm?.matchers).slice(0, MAX_MATCHERS),
+        body,
+      })
     }
   }
   return out
 }
 
 function scoreMemory(memory: Memory, query: string): number {
+  if (!query.trim()) return 0
   const words = query.toLowerCase().split(/\s+/).filter((w) => w.length >= 2)
-  if (words.length === 0) return 0
-  const hay = `${memory.type} ${memory.tags.join(" ")} ${memory.body}`.toLowerCase()
   let score = 0
-  for (const w of words) {
-    if (hay.includes(w)) score++
-    if (memory.type === w) score += 2
-    if (memory.tags.some((t) => t.toLowerCase().includes(w))) score += 2
+
+  if (words.length > 0) {
+    const hay = `${memory.type} ${memory.tags.join(" ")} ${memory.body}`.toLowerCase()
+    for (const w of words) {
+      if (hay.includes(w)) score += 1
+      if (memory.type === w) score += 2
+      if (memory.tags.some((t) => t.toLowerCase().includes(w))) score += 2
+    }
   }
+
+  for (const pattern of memory.matchers) {
+    if (pattern.length === 0 || pattern.length > MAX_MATCHER_LENGTH) continue
+    try {
+      if (new RegExp(pattern, "i").test(query)) score += 5
+    } catch {
+      // skip invalid regex silently
+    }
+  }
+
   return score
 }
 
@@ -169,8 +199,10 @@ export const MemoryPlugin: Plugin = async (ctx, options?: PluginOptions) => {
       memory_write: tool({
         description:
           "Store a persistent memory (fact, decision, preference, observation, or task). " +
-          "Local scope stores under .memory/ in the project root. " +
-          "Global scope stores under ~/.config/opencode/memory/ (cross-project).",
+          "Tags are simple keywords for filtering. Matchers are JavaScript regex patterns " +
+          "(no slashes) that, if they match the user's current prompt, make this memory much " +
+          "more likely to surface via auto-injection. Local scope stores under .memory/ in the " +
+          "project root. Global scope stores under ~/.config/opencode/memory/ (cross-project).",
         args: {
           content: tool.schema.string().describe("The full text of the memory"),
           type: tool
@@ -181,7 +213,16 @@ export const MemoryPlugin: Plugin = async (ctx, options?: PluginOptions) => {
             .schema
             .array(tool.schema.string())
             .optional()
-            .describe("Tags for retrieval, e.g. user/tooling, project/auth"),
+            .describe("List of keyword tags for filtering, e.g. ['user/tooling', 'project/auth']"),
+          matchers: tool
+            .schema
+            .array(tool.schema.string())
+            .optional()
+            .describe(
+              "List of JavaScript regex patterns (no slashes, no flags). " +
+                "If a pattern matches the user's prompt, the memory scores higher in auto-injection. " +
+                "Examples: ['fastapi', 'fast.?api', 'python.*async']",
+            ),
           scope: tool
             .schema
             .enum(["local", "global"])
@@ -198,6 +239,7 @@ export const MemoryPlugin: Plugin = async (ctx, options?: PluginOptions) => {
             id: file,
             type: args.type,
             tags: args.tags ?? [],
+            matchers: (args.matchers ?? []).slice(0, MAX_MATCHERS),
             scope,
             created: new Date().toISOString(),
             source: "memory_write tool",
@@ -253,42 +295,23 @@ export const MemoryPlugin: Plugin = async (ctx, options?: PluginOptions) => {
             .describe("Which store(s) to search"),
         },
         async execute(args, ctx) {
-          const dirs: string[] = []
-          if (args.scope !== "global") dirs.push(join(ctx.worktree, ".memory"))
-          if (args.scope !== "local") dirs.push(GLOBAL_DIR)
-
-          const results: { path: string; summary: string }[] = []
-          for (const dir of dirs) {
-            if (!existsSync(dir)) continue
-            const files = readdirSync(dir).filter(
-              (f) => f.endsWith(".md") && !f.startsWith("."),
-            )
-            for (const f of files) {
-              const full = join(dir, f)
-              const raw = readFileSync(full, "utf-8")
-              const body = raw.replace(/---[\s\S]*?---\n?/, "").trim()
-
-              let match = true
-              if (args.keyword && !raw.toLowerCase().includes(args.keyword.toLowerCase())) match = false
-              if (args.type && !raw.includes(`type: ${args.type}`)) match = false
-              if (args.tag) {
-                const tagMatch = raw.match(/tags:\s*\[([^\]]*)\]/)
-                if (!tagMatch || !tagMatch[1].includes(args.tag)) match = false
-              }
-              if (match) {
-                results.push({
-                  path: full,
-                  summary: body.slice(0, 200).replace(/\n/g, " "),
-                })
-              }
+          const memories = loadMemories(args.scope ?? "both", ctx.worktree)
+          const results = memories.filter((m) => {
+            if (args.keyword) {
+              const kw = args.keyword.toLowerCase()
+              const hay = `${m.type} ${m.tags.join(" ")} ${m.body}`.toLowerCase()
+              if (!hay.includes(kw)) return false
             }
-          }
+            if (args.type && m.type !== args.type) return false
+            if (args.tag && !m.tags.some((t) => t.includes(args.tag!))) return false
+            return true
+          })
 
           if (results.length === 0) return "No memories found."
           return results
             .map(
-              (r, i) =>
-                `${i + 1}. ${r.path} — ${r.summary}${r.summary.length >= 200 ? "..." : ""}`,
+              (m, i) =>
+                `${i + 1}. ${m.path} — ${m.body.slice(0, 200).replace(/\n/g, " ")}${m.body.length >= 200 ? "..." : ""}`,
             )
             .join("\n\n")
         },
@@ -328,23 +351,10 @@ export const MemoryPlugin: Plugin = async (ctx, options?: PluginOptions) => {
             .describe("Which store(s) to list"),
         },
         async execute(args, ctx) {
-          const dirs: { scope: string; dir: string }[] = []
-          if (args.scope !== "global") dirs.push({ scope: "local", dir: join(ctx.worktree, ".memory") })
-          if (args.scope !== "local") dirs.push({ scope: "global", dir: GLOBAL_DIR })
-
-          const entries: { scope: string; count: number }[] = []
-          for (const { scope, dir } of dirs) {
-            if (!existsSync(dir)) {
-              entries.push({ scope, count: 0 })
-              continue
-            }
-            const files = readdirSync(dir).filter(
-              (f) => f.endsWith(".md") && !f.startsWith("."),
-            )
-            entries.push({ scope, count: files.length })
-          }
-
-          return entries.map((e) => `${e.scope}: ${e.count} memories`).join("\n")
+          const memories = loadMemories(args.scope ?? "both", ctx.worktree)
+          const counts: Record<string, number> = { local: 0, global: 0 }
+          for (const m of memories) counts[m.scope]++
+          return `local: ${counts.local} memories\nglobal: ${counts.global} memories`
         },
       }),
     },
