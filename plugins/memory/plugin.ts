@@ -1,4 +1,4 @@
-import type { Plugin } from "@opencode-ai/plugin"
+import { type Plugin, tool } from "@opencode-ai/plugin"
 import { join } from "node:path"
 import { homedir } from "node:os"
 import {
@@ -10,20 +10,20 @@ import {
   renameSync,
 } from "node:fs"
 
-const LOCAL_DIR = ".memory"
 const GLOBAL_DIR = join(homedir(), ".config", "opencode", "memory")
 
 function ensureStore(dir: string) {
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
 }
 
-function storePath(scope: "local" | "global"): string {
-  return scope === "local" ? LOCAL_DIR : GLOBAL_DIR
+function storeRoot(scope: "local" | "global", worktree: string): string {
+  return scope === "local" ? join(worktree, ".memory") : GLOBAL_DIR
 }
 
 function fileName(): string {
   const ts = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19)
-  return `${ts}-${crypto.randomUUID().slice(0, 8)}.md`
+  const rand = Math.random().toString(36).slice(2, 8)
+  return `${ts}-${rand}.md`
 }
 
 function frontmatter(data: Record<string, unknown>): string {
@@ -37,121 +37,101 @@ function frontmatter(data: Record<string, unknown>): string {
   return `---\n${yaml}\n---\n\n`
 }
 
-export default (async ({ client, project, directory, $ }) => {
-  ensureStore(LOCAL_DIR)
-  ensureStore(GLOBAL_DIR)
-
+export const MemoryPlugin: Plugin = async () => {
   return {
     tool: {
-      memory_write: {
-        name: "memory_write",
+      memory_write: tool({
         description:
           "Store a persistent memory (fact, decision, preference, observation, or task). " +
-          "Scoped to the current project (local) or your global user config (cross-project). " +
-          "Use local for project-specific decisions, global for personal preferences.",
-        parameters: {
-          type: "object",
-          properties: {
-            content: {
-              type: "string",
-              description: "The full text of the memory",
-            },
-            type: {
-              type: "string",
-              enum: ["fact", "decision", "preference", "observation", "task"],
-              description: "Category of the memory",
-            },
-            tags: {
-              type: "array",
-              items: { type: "string" },
-              description:
-                "Tags for retrieval (e.g. user/tooling, project/auth, meta/pattern)",
-            },
-            scope: {
-              type: "string",
-              enum: ["local", "global"],
-              default: "local",
-              description:
-                "local = project-scoped (.memory/), global = cross-project (~/.config/opencode/memory/)",
-            },
-          },
-          required: ["content", "type"],
+          "Local scope stores under .memory/ in the project root. " +
+          "Global scope stores under ~/.config/opencode/memory/ (cross-project).",
+        args: {
+          content: tool.schema.string().describe("The full text of the memory"),
+          type: tool
+            .schema
+            .enum(["fact", "decision", "preference", "observation", "task"])
+            .describe("Category of the memory"),
+          tags: tool
+            .schema
+            .array(tool.schema.string())
+            .optional()
+            .describe("Tags for retrieval, e.g. user/tooling, project/auth"),
+          scope: tool
+            .schema
+            .enum(["local", "global"])
+            .optional()
+            .default("local")
+            .describe("local = project-scoped, global = cross-project"),
         },
-        handler: async (input) => {
-          const scope = (input.scope ?? "local") as "local" | "global"
-          const dir = storePath(scope)
+        async execute(args, ctx) {
+          const scope = args.scope ?? "local"
+          const dir = storeRoot(scope, ctx.worktree)
           ensureStore(dir)
           const file = join(dir, fileName())
           const meta = {
             id: file,
-            type: input.type,
-            tags: input.tags ?? [],
+            type: args.type,
+            tags: args.tags ?? [],
             scope,
             created: new Date().toISOString(),
             source: "memory_write tool",
           }
-          writeFileSync(file, frontmatter(meta) + input.content, "utf-8")
-          return `Stored ${scope} memory: ${input.type}`
+          writeFileSync(file, frontmatter(meta) + args.content, "utf-8")
+          return `Stored ${scope} memory: ${args.type}`
         },
-      },
+      }),
 
-      memory_read: {
-        name: "memory_read",
+      memory_read: tool({
         description:
-          "Read the full content of a specific memory by its file path.",
-        parameters: {
-          type: "object",
-          properties: {
-            path: {
-              type: "string",
-              description:
-                "Full path to the memory file (e.g. .memory/2026-06-06T14-30-21-something.md)",
-            },
-          },
-          required: ["path"],
+          "Read the full content of a specific memory by its relative or absolute path.",
+        args: {
+          path: tool
+            .schema
+            .string()
+            .describe("Path to the memory file (relative to project dir or absolute)"),
         },
-        handler: async (input) => {
-          if (!existsSync(input.path)) return `File not found: ${input.path}`
-          const content = readFileSync(input.path, "utf-8")
+        async execute(args, ctx) {
+          const resolved = join(ctx.directory, args.path)
+          if (!existsSync(resolved)) {
+            return { output: `File not found: ${args.path}`, title: "Not found" }
+          }
+          const content = readFileSync(resolved, "utf-8")
           return content
         },
-      },
+      }),
 
-      memory_search: {
-        name: "memory_search",
+      memory_search: tool({
         description:
-          "Search memories by keyword, type, or tags across both local and global stores.",
-        parameters: {
-          type: "object",
-          properties: {
-            keyword: {
-              type: "string",
-              description: "Search term to match in memory body or frontmatter",
-            },
-            type: {
-              type: "string",
-              enum: ["fact", "decision", "preference", "observation", "task"],
-              description: "Filter by memory type",
-            },
-            tag: {
-              type: "string",
-              description: "Filter by tag (e.g. user/tooling)",
-            },
-            scope: {
-              type: "string",
-              enum: ["local", "global", "both"],
-              default: "both",
-              description: "Which store to search",
-            },
-          },
+          "Search memories by keyword, type, or tag across local and/or global stores.",
+        args: {
+          keyword: tool
+            .schema
+            .string()
+            .optional()
+            .describe("Search term to match in memory body or frontmatter"),
+          type: tool
+            .schema
+            .enum(["fact", "decision", "preference", "observation", "task"])
+            .optional()
+            .describe("Filter by memory type"),
+          tag: tool
+            .schema
+            .string()
+            .optional()
+            .describe("Filter by tag, e.g. user/tooling"),
+          scope: tool
+            .schema
+            .enum(["local", "global", "both"])
+            .optional()
+            .default("both")
+            .describe("Which store(s) to search"),
         },
-        handler: async (input) => {
+        async execute(args, ctx) {
           const dirs: string[] = []
-          if (input.scope !== "global") dirs.push(LOCAL_DIR)
-          if (input.scope !== "local") dirs.push(GLOBAL_DIR)
+          if (args.scope !== "global") dirs.push(join(ctx.worktree, ".memory"))
+          if (args.scope !== "local") dirs.push(GLOBAL_DIR)
 
           const results: { path: string; summary: string }[] = []
-
           for (const dir of dirs) {
             if (!existsSync(dir)) continue
             const files = readdirSync(dir).filter(
@@ -163,18 +143,16 @@ export default (async ({ client, project, directory, $ }) => {
               const body = raw.replace(/---[\s\S]*?---\n?/, "").trim()
 
               let match = true
-              if (input.keyword && !raw.toLowerCase().includes(input.keyword.toLowerCase())) match = false
-              if (input.type && !raw.includes(`type: ${input.type}`)) match = false
-              if (input.tag && !raw.includes(`tags:`)) match = false
-              if (input.tag && raw.includes("tags:")) {
+              if (args.keyword && !raw.toLowerCase().includes(args.keyword.toLowerCase())) match = false
+              if (args.type && !raw.includes(`type: ${args.type}`)) match = false
+              if (args.tag) {
                 const tagMatch = raw.match(/tags:\s*\[([^\]]*)\]/)
-                if (!tagMatch || !tagMatch[1].includes(input.tag)) match = false
+                if (!tagMatch || !tagMatch[1].includes(args.tag)) match = false
               }
-
               if (match) {
                 results.push({
                   path: full,
-                  summary: body.slice(0, 120).replace(/\n/g, " "),
+                  summary: body.slice(0, 200).replace(/\n/g, " "),
                 })
               }
             }
@@ -184,77 +162,65 @@ export default (async ({ client, project, directory, $ }) => {
           return results
             .map(
               (r, i) =>
-                `${i + 1}. ${r.path} — ${r.summary}${r.summary.length >= 120 ? "..." : ""}`,
+                `${i + 1}. ${r.path} — ${r.summary}${r.summary.length >= 200 ? "..." : ""}`,
             )
-            .join("\n")
+            .join("\n\n")
         },
-      },
+      }),
 
-      memory_forget: {
-        name: "memory_forget",
+      memory_forget: tool({
         description:
           "Soft-delete a memory by moving it to a .trash folder within its store.",
-        parameters: {
-          type: "object",
-          properties: {
-            path: {
-              type: "string",
-              description:
-                "Full path to the memory file to delete",
-            },
-          },
-          required: ["path"],
+        args: {
+          path: tool
+            .schema
+            .string()
+            .describe("Path to the memory file to delete (relative or absolute)"),
         },
-        handler: async (input) => {
-          if (!existsSync(input.path))
-            return `File not found: ${input.path}`
-          const trash = join(input.path, "..", ".trash")
+        async execute(args, ctx) {
+          const resolved = join(ctx.directory, args.path)
+          if (!existsSync(resolved)) {
+            return { output: `File not found: ${args.path}`, title: "Not found" }
+          }
+          const trash = join(resolved, "..", ".trash")
           ensureStore(trash)
-          const dest = join(trash, input.path.split(/[/\\]/).pop()!)
-          renameSync(input.path, dest)
+          const dest = join(trash, resolved.split(/[/\\]/).pop()!)
+          renameSync(resolved, dest)
           return `Moved to trash: ${dest}`
         },
-      },
+      }),
 
-      memory_list: {
-        name: "memory_list",
+      memory_list: tool({
         description:
           "List all memories, optionally filtered by scope.",
-        parameters: {
-          type: "object",
-          properties: {
-            scope: {
-              type: "string",
-              enum: ["local", "global", "both"],
-              default: "both",
-              description:
-                "Which store to list from",
-            },
-          },
+        args: {
+          scope: tool
+            .schema
+            .enum(["local", "global", "both"])
+            .optional()
+            .default("both")
+            .describe("Which store(s) to list"),
         },
-        handler: async (input) => {
-          const dirs: string[] = []
-          if (input.scope !== "global") dirs.push(LOCAL_DIR)
-          if (input.scope !== "local") dirs.push(GLOBAL_DIR)
+        async execute(args, ctx) {
+          const dirs: { scope: string; dir: string }[] = []
+          if (args.scope !== "global") dirs.push({ scope: "local", dir: join(ctx.worktree, ".memory") })
+          if (args.scope !== "local") dirs.push({ scope: "global", dir: GLOBAL_DIR })
 
           const entries: { scope: string; count: number }[] = []
-
-          for (const dir of dirs) {
+          for (const { scope, dir } of dirs) {
             if (!existsSync(dir)) {
-              entries.push({ scope: dir, count: 0 })
+              entries.push({ scope, count: 0 })
               continue
             }
             const files = readdirSync(dir).filter(
               (f) => f.endsWith(".md") && !f.startsWith("."),
             )
-            entries.push({ scope: dir, count: files.length })
+            entries.push({ scope, count: files.length })
           }
 
-          return entries
-            .map((e) => `${e.scope}: ${e.count} memories`)
-            .join("\n")
+          return entries.map((e) => `${e.scope}: ${e.count} memories`).join("\n")
         },
-      },
+      }),
     },
   }
-}) satisfies Plugin
+}

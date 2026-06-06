@@ -27,6 +27,15 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Lock files in plugins/ (ephemeral for type-checking)
+plugins/**/bun.lock
+plugins/**/bun.lockb
+plugins/**/package-lock.json
+
 # Temporary files
 *.tmp
 *.temp
