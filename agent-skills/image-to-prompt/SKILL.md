@@ -6,9 +6,6 @@ description: >
      dense reconstructive prose that another generator could reproduce with no visual ambiguity.
   2) Prompt generation — given a concept, scene description, or mood, produces a detailed prompt from scratch.
   3) Prompt augmentation — takes an existing prompt and enriches it with more specificity, structure, and sensory density.
-  All output is unbroken flowing prose (no headers, bullets, or lists) at minimum 4× the length of a standard description.
-  Preserves flaws, dated aesthetics, anatomical quirks, and era-specific details — smoothing anything out is a failure mode.
-  Requires a vision-capable model when the input is an image; works with any LLM for generation and augmentation.
 license: CC BY 4.0
 metadata:
     author: mdev34-lab

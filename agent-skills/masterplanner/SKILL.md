@@ -4,9 +4,7 @@ description: >
   Use when a task requires deep upfront planning before any code is written.
   Modeled after Claude Code's /ultraplan methodology: multi-agent exploration of the codebase, dependency analysis,
   risk/edge-case identification, synthesis into a structured step-by-step plan, and critique-driven revision.
-  Outputs a comprehensive plan document that mastercoder can execute directly.
-  Does NOT write production code, tests, or validate builds.
-  Do NOT use for simple tasks where the approach is obvious — use mastercoder directly instead.
+  Outputs a comprehensive plan document that mastercoder (and regular operation) can execute directly.
 license: CC BY 4.0
 metadata:
     author: mdev34-lab
