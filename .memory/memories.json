@@ -1,0 +1,15 @@
+{
+  "nextId": 2,
+  "memories": [
+    {
+      "id": 1,
+      "type": "fact",
+      "tags": "[\"project/structure\",\"skills\"]",
+      "matchers": "[\"SKILL\\\\.md\",\"skill\",\"agent.skills\",\"web-designer\",\"masterplanner\",\"mastercoder\",\"image-to-prompt\"]",
+      "scope": "local",
+      "body": "Workspace skill files live under agent-skills/ in the workspace root (e.g., C:\\Users\\Admin\\OneDrive\\Documentos\\Prompt Engineering\\agent-skills\\web-designer\\SKILL.md). The .config/opencode/skills/ directory is a mirror. ALWAYS edit the workspace copy (agent-skills/) and then copy to .config/ if needed, or edit both. Never edit only .config.",
+      "created": "2026-06-15T20:01:35.237Z",
+      "deleted": 0
+    }
+  ]
+}

@@ -74,7 +74,7 @@ Is this conversion-first, expression-first, or information-first? Let that answe
 
 **STEP 8b — NAVIGATION PATTERN FROM USE CASE**
 Do not default to top nav. Choose based on product type:
-- **Dashboard / Tool / SaaS app (fintech, analytics, crypto custody)**: Fixed sidebar left (w-64), glass or solid, with persistent status indicators in footer. Main content uses `lg:ml-64`, never `pl-64`. Wrap inner content in padded container (`px-6 lg:px-8 py-8`). This preserves vertical space for data density.
+- **Dashboard / Tool / SaaS app (fintech, analytics, crypto custody)**: Fixed sidebar left (w-64), glass or solid, with persistent status indicators in footer. Main content uses `lg:ml-64`, never `pl-64`. Wrap inner content in padded container (`px-6 lg:px-8 py-8`). This preserves vertical space for data density. **WARNING:** Never add `lg:static`/`lg:sticky` to the sidebar while keeping `ml-*` on content — that doubles the gap. Fixed sidebar must stay `fixed` on all breakpoints.
 - **Marketing / Landing**: Top nav, often transparent over hero. Can use mix-blend.
 - **Editorial / Portfolio**: Minimal nav, sometimes hidden, focus on content flow.
 
@@ -229,6 +229,7 @@ Match-and-refuse: if about to write any of these, stop and rewrite entirely.
 **AP-33 · Hard Default Shadows** — Using default CSS shadows (`0 4px 6px -1px rgba(0,0,0,0.1)`). Use "whisper" style (opacity <5%, blur >20px) or tinted toward background.
 **AP-44 · Lazy Egg Gradient** — Simple circular/elliptical `border-radius: 50%` blur orbs as background decoration with no compositional intent. Every background gradient must show deliberate craft: gradient mesh, multi-stop radial with offset centers, conic transitions, or layered directional blends that respond to the layout. A single centered blur ellipse is not a background — it's a placeholder.
 **AP-45 · F5 Loading** — Relying on browser full-page reloads for navigation, panel switches, or content changes. Every state transition must have client-side loading UX: skeleton screens, shimmer placeholders, or inline spinners with meaningful labels. Hard page reloads are only acceptable for auth redirects or 404 fallbacks.
+**AP-46 · Split-Position Sidebar** — Switching a sidebar from `fixed` to `static`/`sticky` at a breakpoint while the main content keeps an `ml-*` offset meant for the fixed position. This doubles the gap on one breakpoint. Choose ONE positioning mode and stick with it: fixed sidebar + `ml-*` on main, OR in-flow sidebar (static/sticky via flex) + no `ml-*` on main. Never mix — not even responsive breakpoints.
 
 **AP-34 · Redundant Navigation Arrows** — "Left/Right" arrows on mobile carousels where swipe is primary affordance. *Exemption: Accessibility.*
 
@@ -1221,7 +1222,7 @@ For dashboards, prefer flexbox over fixed positioning:
   </main>
 </div>
 ```
-This avoids z-index issues and ml-64 calculations. Only use fixed + ml-64 when sidebar must overlay content on scroll.
+This avoids z-index issues and ml-64 calculations. Only use fixed + ml-64 when sidebar must overlay content on scroll. **Never swap between fixed and in-flow modes across breakpoints while keeping the ml offset — it doubles the gap.**
 
 Alternative for sticky sidebar:
 ```html
