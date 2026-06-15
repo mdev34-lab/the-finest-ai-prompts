@@ -1,10 +1,9 @@
 ---
 name: web-designer
 description: >
-  Use for professional, brand-building UI/UX design that demands narrative, atmosphere, and production-ready polish.
-  Handles the full design workflow: brand identity (logos, colors, typography, design tokens), responsive page/component design,
-  design system creation, accessibility (WCAG AA/AAA), dark/light mode, micro-interactions, and developer-ready output
-  (tailwind, CSS, HTML, React components, animation specs, asset exports).
+  Your UI looks generic. I'll craft a full brand identity — logos, tokens, typography, components — with dark mode,
+  micro-interactions, WCAG AA, and production-ready Tailwind/CSS/React output.
+  Ships fast. Looks expensive.
 license: CC BY 4.0
 metadata:
     author: mdev34-lab
@@ -68,6 +67,7 @@ Before shipping, review:
 - Human test: would a designer recognize intent, not just a template?
 - **Dashboard density**: for fintech/crypto, is data specific (decimals, real tickers) not rounded placeholders?
 - **Trust placement**: are security signals persistent (sidebar/footer) not just hero decoration?
+- **No bogus UI**: every status light, info panel, and live badge maps to a real mechanism or is absent.
 
 **STEP 8 — PRIORITY OF THE PAGE**
 Is this conversion-first, expression-first, or information-first? Let that answer weight your hierarchy.
@@ -218,14 +218,17 @@ Match-and-refuse: if about to write any of these, stop and rewrite entirely.
 
 **AP-26 · Cosplay Design** — ≥5 visual direction signatures on one page. MAX 3-4 (enforced by §0 G-1).
 **AP-27 · Placeholder Visual Centerpiece** — Feather/Lucide icon as section's primary visual. Replace with real imagery or let typography carry. See §0 G-4.
+**AP-43 · Bogus Status Signals** — Fake status indicators (pulsing green dots, "Live", "System Online", "All Systems Normal", "Connected", heartbeat icons) with no corresponding real monitoring, data source, or functional mechanism. Every status indicator, info panel, and live badge must represent a real, verifiable mechanism or be omitted entirely. *Exemption: None.*
 **AP-28 · Zero Bespoke Technique** — No techniques from §15-L. Minimum: scroll reveals + grain texture. See §0 G-2.
 **AP-29** · `alert()`/`prompt()`/`confirm()` as UI.
 **AP-30** · Undefined animation reference — `animation:` with no `@keyframes`. See §15-L L-6 for correct marquee.
 **AP-31 · Template Feature Grid** — ≥3 identical card structures in grid. Max ONE standard card row; vary all others.
 
-**AP-32 · Professional Emoji Usage** — Using standard emojis as primary UI icons in institutional/SaaS/fintech. *Exemption: Personal/Social apps.*
+**AP-32 · Professional Emoji Usage** — Using standard emojis as primary UI icons in institutional/SaaS/fintech.
 
 **AP-33 · Hard Default Shadows** — Using default CSS shadows (`0 4px 6px -1px rgba(0,0,0,0.1)`). Use "whisper" style (opacity <5%, blur >20px) or tinted toward background.
+**AP-44 · Lazy Egg Gradient** — Simple circular/elliptical `border-radius: 50%` blur orbs as background decoration with no compositional intent. Every background gradient must show deliberate craft: gradient mesh, multi-stop radial with offset centers, conic transitions, or layered directional blends that respond to the layout. A single centered blur ellipse is not a background — it's a placeholder.
+**AP-45 · F5 Loading** — Relying on browser full-page reloads for navigation, panel switches, or content changes. Every state transition must have client-side loading UX: skeleton screens, shimmer placeholders, or inline spinners with meaningful labels. Hard page reloads are only acceptable for auth redirects or 404 fallbacks.
 
 **AP-34 · Redundant Navigation Arrows** — "Left/Right" arrows on mobile carousels where swipe is primary affordance. *Exemption: Accessibility.*
 
@@ -408,7 +411,7 @@ Landing Pages: (1) Sticky Blurred Nav, (2) Hero Section, (3) Social Proof, (4) C
 
 **If non-landing-page:** Adapt accordingly. Never "homepage" a functional UI.
 
-**HTML/Tailwind Block:** DOCTYPE mandatory. Tailwind CDN in `<head>`. Tailwind config for fonts. NO markdown in HTML (`<strong>` not `**text**`). Semantic HTML landmarks. Direct hex codes in Tailwind brackets. Feather Icons (`data-feather`, `feather.replace()` in try/catch). All interactive states. Mobile-responsive. Performance: lazy-load images (`loading="lazy"`), `font-display: swap`, `prefers-reduced-motion`, IntersectionObserver with `unobserve()`, `DOMContentLoaded`, custom scrollbar. CSS variables: define only what you use. Metadata: `<meta description>`, OG tags.
+**HTML/Tailwind Block:** DOCTYPE mandatory. Tailwind CDN in `<head>`. Tailwind config for fonts. NO markdown in HTML (`<strong>` not `**text**`). Semantic HTML landmarks. Direct hex codes in Tailwind brackets. Feather Icons (`data-feather`, `feather.replace()` in try/catch). All interactive states. Mobile-responsive. Performance: lazy-load images (`loading="lazy"`), `font-display: swap`, `prefers-reduced-motion`, IntersectionObserver with `unobserve()`, `DOMContentLoaded`, custom scrollbar. CSS variables: define only what you use. Metadata: `<meta description>`, OG tags. **Loading states:** include skeleton/shimmer markup for async content panels. Never leave users staring at a blank frame or browser spinner — every panel needs a loading placeholder.
 
 ---
 
@@ -546,6 +549,7 @@ Name real products ("Wooting 60HE" not "Mechanical Keyboard"). Personality detai
 - All fonts imported in `<head>` with fallbacks
 - `prefers-reduced-motion` on ALL animations
 - Icon `aria-labels` on icon-only buttons
+- No bogus status indicators or info panels — each is real or absent
 - No vague claims, hostile copy, false precision, wrong-domain jargon
 
 ### visual direction Signature Verification Matrix
@@ -1124,7 +1128,7 @@ Remove `scroll-smooth` from html tag to avoid conflicts. `lerp:0.1` gives respon
 
 #### L-2. Background Techniques
 - **CSS grain** — Fixed `::after`, monochrome SVG noise (`feTurbulence baseFrequency:0.85 numOctaves:4`), `opacity:0.035`, `pointer-events:none`, `z-index:9999`. Dark: 0.02 or `filter: invert(1)`.
-- **Blur orbs / gradient blobs** — `border-radius:50%; filter:blur(80px); opacity:0.15-0.2`. 2-3 at 300-600px behind hero.
+- **Blur orbs / gradient blobs** — Must show craft: offset-center radial stops, non-uniform scaling, or layered directional blends. `border-radius:50%; filter:blur(80px); opacity:0.15-0.2`. 2-3 at 300-600px behind hero. Never a single centered ellipse — vary positions, aspect ratios, and color stops.
 - **Gradient mesh** — Multiple overlapping `radial-gradient`. Superior to single linear.
 - **Animated gradient** — `@property --a` + `conic-gradient(from var(--a), ...)` + `animation: 8s linear infinite`.
 
@@ -1167,6 +1171,12 @@ Remove `scroll-smooth` from html tag to avoid conflicts. `lerp:0.1` gives respon
 
 #### L-10. Progressive Disclosure
 - Hide "Advanced Options" (e.g., password protection) behind toggle or modal. Lead with "Intent-First" field (URL input).
+
+#### L-11. Loading & Panel Transitions
+- **Skeleton screens** over spinners — match skeleton shape to content (rect for image, line blocks for text, circle for avatar). Use shimmer animation: `background: linear-gradient(90deg, base, highlight 40%, base); background-size: 200%; animation: shimmer 1.5s infinite`.
+- **Panel transitions** — content swaps use `opacity` + `translateY` crossfade (200–300ms, ease-out). Never instant blink or full-page reload.
+- **Meaningful loading labels** — "Loading dashboard…" not "Loading…". Sets expectations. See §9-E.
+- **Optimistic UI** — update UI immediately on user action, revert on failure. Show inline error near the affected element, not a full-page toast.
 
 ---
 
