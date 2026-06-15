@@ -183,71 +183,63 @@ Executes before any visual direction. Violating produces generic output regardle
 
 Match-and-refuse: if about to write any of these, stop and rewrite entirely.
 
-#### Slop Tells (AI-Generation Signatures)
+#### A. Visual & Typography — Composition, color, fonts, decorative decisions
 
-**AP-1 · Side-Stripe Accent Border** — `border-left:` or `border-right:` ≥ 2px on cards, list items, callouts. *Exemption: III-B Swiss* (`border-l-4` mandatory).
-**AP-2 · Gradient Text** — `background-clip: text` combined with any gradient. Solid colors only. No exemptions.
-**AP-3 · Overused Fonts** — Inter, Roboto, Open Sans, Lato, Montserrat, Arial as primary identity. *Exemption: Clearform.* Additional banned reflex: Syne, Fraunces, Newsreader, Lora, Crimson, Cormorant, IBM Plex, Space Grotesk, DM Sans, Outfit, Plus Jakarta Sans, Instrument Sans/Serif. See §13.
-**AP-4 · Single Font for Entire Page** — Minimum 2 font families unless mono-only (Terminal CLI).
-**AP-5 · Flat Type Hierarchy** — Font size max/min ratio < 2.0 when ≥ 3 sizes. H1 ≥ 3× body.
-**AP-6 · AI Color Palette** — Purple/violet text (hue 260–310) on ≥ h3 or ≥ 20px. Purple-to-blue gradients. Cyan gradient backgrounds. *Exemption: V-A Vaporwave, V-B Acidpunk.*
-**AP-7 · Nested Cards** — Cards nested inside card-like containers. Flatten with spacing and typography.
-**AP-8 · Monotonous Spacing** — Same spacing ≥ 60% across ≥ 10 declarations. Create rhythm.
-**AP-9 · Everything Centered** — > 70% text-bearing elements centered. At least one asymmetric element required.
-**AP-10 · Icon Tile Stacked Above Heading** — Squarish icon container directly above heading, repeated. Icons rarely add value.
-**AP-11 · Bounce/Elastic Easing** — Names containing bounce/elastic/wobble, or cubic-bezier y-values outside [−0.1, 1.1].
-**AP-12 · Dark Glow** — Dark bg (luminance < 0.1) + colored box-shadow (chroma ≥ 30) with blur > 4px. *Exemption: V-A Vaporwave, V-B Acidpunk.*
+**V-1 · Side-Stripe Accent Border** — `border-left:` or `border-right:` ≥ 2px on cards, list items, callouts. *Exemption: III-B Swiss* (`border-l-4` mandatory).
+**V-2 · Gradient Text** — `background-clip: text` combined with any gradient. Solid colors only. No exemptions.
+**V-3 · Overused Fonts** — Inter, Roboto, Open Sans, Lato, Montserrat, Arial as primary identity. *Exemption: Clearform.* Additional banned reflex: Syne, Fraunces, Newsreader, Lora, Crimson, Cormorant, IBM Plex, Space Grotesk, DM Sans, Outfit, Plus Jakarta Sans, Instrument Sans/Serif. See §13.
+**V-4 · Single Font for Entire Page** — Minimum 2 font families unless mono-only (Terminal CLI).
+**V-5 · Flat Type Hierarchy** — Font size max/min ratio < 2.0 when ≥ 3 sizes. H1 ≥ 3× body.
+**V-6 · AI Color Palette** — Purple/violet text (hue 260–310) on ≥ h3 or ≥ 20px. Purple-to-blue gradients. Cyan gradient backgrounds. *Exemption: V-A Vaporwave, V-B Acidpunk.*
+**V-7 · Nested Cards** — Cards nested inside card-like containers. Flatten with spacing and typography.
+**V-8 · Monotonous Spacing** — Same spacing ≥ 60% across ≥ 10 declarations. Create rhythm.
+**V-9 · Everything Centered** — > 70% text-bearing elements centered. At least one asymmetric element required.
+**V-10 · Icon Tile Stacked Above Heading** — Squarish icon container directly above heading, repeated. Icons rarely add value.
+**V-11 · Cosplay Design** — ≥5 visual direction signatures on one page. MAX 3-4 (enforced by §0 G-1).
+**V-12 · Placeholder Visual Centerpiece** — Feather/Lucide icon as section's primary visual. Replace with real imagery or let typography carry. See §0 G-4.
+**V-13 · Template Feature Grid** — ≥3 identical card structures in grid. Max ONE standard card row; vary all others.
+**V-14 · Professional Emoji Usage** — Using standard emojis as primary UI icons in institutional/SaaS/fintech.
+**V-15 · Hard Default Shadows** — Using default CSS shadows (`0 4px 6px -1px rgba(0,0,0,0.1)`). Use "whisper" style (opacity <5%, blur >20px) or tinted toward background.
+**V-16 · Round-Top Bar Charts** — Significantly rounded top corners obscure data points. Dribbble-bait, not functional.
+**V-17 · Floating Icons** — Icons larger than line-height of accompanying text.
+**V-18 · Mixed Material Logic** — Inconsistent depth treatment within same region (e.g., Share button has top-down light highlight but input fields are flat). "Material" surfaces must share consistent lighting direction.
+**V-19 · Line-Height Tension** — Large headings (≥32px) with insufficient line-height causing descenders to touch next line ascenders. Use leading-tight (110-120%) for display type.
+**V-20 · Lazy Egg Gradient** — Simple circular/elliptical `border-radius: 50%` blur orbs as background decoration with no compositional intent. Every background gradient must show deliberate craft: gradient mesh, multi-stop radial with offset centers, conic transitions, or layered directional blends that respond to the layout. A single centered blur ellipse is not a background — it's a placeholder.
 
-#### Quality Failures (Accessibility + Implementation)
+#### B. Accessibility & Readability — WCAG contrast, semantics, text formatting
 
-**AP-13** · Pure black `#000000` on large surfaces. Tint toward brand hue (oklch 12–18%).
-**AP-14** · Gray text (chroma < 20) on chromatic background. Use darker shade of bg color.
-**AP-15** · Body text < 4.5:1, large text < 3:1 against background.
-**AP-16** · Layout property animation on width/height/padding/margin. Use transform + opacity.
-**AP-17** · Line length > 85ch. Cap at max-width: 65–75ch.
-**AP-18** · Cramped padding: vertical ≥ max(4px, fontSize × 0.3), horizontal ≥ max(8px, fontSize × 0.5).
-**AP-19** · line-height/font-size ratio < 1.3 on non-headings with > 50 chars.
-**AP-20** · Skipped heading level (e.g., h1 → h3).
-**AP-21** · Justified text without `hyphens: auto`.
-**AP-22** · Font size < 12px on body content (> 20 chars). Min 16px body.
-**AP-23** · `text-transform: uppercase` on non-headings with > 30 chars.
-**AP-24** · `letter-spacing` > 0.05em on non-uppercase body with > 20 chars.
-**AP-25** · Modals when progressive disclosure, inline expansion, or undo would suffice.
+**R-1** · Pure black `#000000` on large surfaces. Tint toward brand hue (oklch 12–18%).
+**R-2** · Gray text (chroma < 20) on chromatic background. Use darker shade of bg color.
+**R-3** · Body text < 4.5:1, large text < 3:1 against background.
+**R-4** · Line length > 85ch. Cap at max-width: 65–75ch.
+**R-5** · Cramped padding: vertical ≥ max(4px, fontSize × 0.3), horizontal ≥ max(8px, fontSize × 0.5).
+**R-6** · line-height/font-size ratio < 1.3 on non-headings with > 50 chars.
+**R-7** · Skipped heading level (e.g., h1 → h3).
+**R-8** · Justified text without `hyphens: auto`.
+**R-9** · Font size < 12px on body content (> 20 chars). Min 16px body.
+**R-10** · `text-transform: uppercase` on non-headings with > 30 chars.
+**R-11** · `letter-spacing` > 0.05em on non-uppercase body with > 20 chars.
+**R-12** · Sub-Threshold Metadata — UI metadata labels (WORDS, CHARS, badges) below 12px. Minimum 12px for accessibility.
 
-#### Production Anti-Patterns
+#### C. Engineering & Interaction — Code patterns, animation, layout implementation
 
-**AP-26 · Cosplay Design** — ≥5 visual direction signatures on one page. MAX 3-4 (enforced by §0 G-1).
-**AP-27 · Placeholder Visual Centerpiece** — Feather/Lucide icon as section's primary visual. Replace with real imagery or let typography carry. See §0 G-4.
-**AP-43 · Bogus Status Signals** — Fake status indicators (pulsing green dots, "Live", "System Online", "All Systems Normal", "Connected", heartbeat icons) with no corresponding real monitoring, data source, or functional mechanism. Every status indicator, info panel, and live badge must represent a real, verifiable mechanism or be omitted entirely. *Exemption: None.*
-**AP-28 · Zero Bespoke Technique** — No techniques from §15-L. Minimum: scroll reveals + grain texture. See §0 G-2.
-**AP-29** · `alert()`/`prompt()`/`confirm()` as UI.
-**AP-30** · Undefined animation reference — `animation:` with no `@keyframes`. See §15-L L-6 for correct marquee.
-**AP-31 · Template Feature Grid** — ≥3 identical card structures in grid. Max ONE standard card row; vary all others.
+**X-1 · Bounce/Elastic Easing** — Names containing bounce/elastic/wobble, or cubic-bezier y-values outside [−0.1, 1.1].
+**X-2 · Dark Glow** — Dark bg (luminance < 0.1) + colored box-shadow (chroma ≥ 30) with blur > 4px. *Exemption: V-A Vaporwave, V-B Acidpunk.*
+**X-3** · Layout property animation on width/height/padding/margin. Use transform + opacity.
+**X-4** · Modals when progressive disclosure, inline expansion, or undo would suffice.
+**X-5** · `alert()`/`prompt()`/`confirm()` as UI.
+**X-6** · Undefined animation reference — `animation:` with no `@keyframes`. See §15-L L-6 for correct marquee.
+**X-7 · Redundant Navigation Arrows** — "Left/Right" arrows on mobile carousels where swipe is primary affordance. *Exemption: Accessibility.*
+**X-8 · Scroll Library Collision** — Adding `scroll-smooth` in `<html>` or `<body>` while a JS scroll library (Lenis, GSAP, etc.) is initialized. They fight for scroll control, causing stuttering. Native CSS smooth scrolling must be removed if a JS scroll library is used.
+**X-9 · Footer Obstruction** — Fixed-position footer physically overlapping text/content, creating "dead zones" where users cannot read or interact. Leave minimum 60px bottom margin or use sticky header only.
+**X-10 · Baseline Stutter** — Form fields, dropdowns, or inputs not sharing perfectly aligned baselines with labels above them. Creates visual "stutter" in scan. Align all field labels and inputs on unified baseline.
+**X-11 · F5 Loading** — Relying on browser full-page reloads for navigation, panel switches, or content changes. Every state transition must have client-side loading UX: skeleton screens, shimmer placeholders, or inline spinners with meaningful labels. Hard page reloads are only acceptable for auth redirects or 404 fallbacks.
+**X-12 · Split-Position Sidebar** — Switching a sidebar from `fixed` to `static`/`sticky` at a breakpoint while the main content keeps an `ml-*` offset meant for the fixed position. This doubles the gap on one breakpoint. Choose ONE positioning mode and stick with it: fixed sidebar + `ml-*` on main, OR in-flow sidebar (static/sticky via flex) + no `ml-*` on main. Never mix — not even responsive breakpoints.
 
-**AP-32 · Professional Emoji Usage** — Using standard emojis as primary UI icons in institutional/SaaS/fintech.
+#### D. Content & Authenticity — Fake UI, placeholder signals
 
-**AP-33 · Hard Default Shadows** — Using default CSS shadows (`0 4px 6px -1px rgba(0,0,0,0.1)`). Use "whisper" style (opacity <5%, blur >20px) or tinted toward background.
-**AP-44 · Lazy Egg Gradient** — Simple circular/elliptical `border-radius: 50%` blur orbs as background decoration with no compositional intent. Every background gradient must show deliberate craft: gradient mesh, multi-stop radial with offset centers, conic transitions, or layered directional blends that respond to the layout. A single centered blur ellipse is not a background — it's a placeholder.
-**AP-45 · F5 Loading** — Relying on browser full-page reloads for navigation, panel switches, or content changes. Every state transition must have client-side loading UX: skeleton screens, shimmer placeholders, or inline spinners with meaningful labels. Hard page reloads are only acceptable for auth redirects or 404 fallbacks.
-**AP-46 · Split-Position Sidebar** — Switching a sidebar from `fixed` to `static`/`sticky` at a breakpoint while the main content keeps an `ml-*` offset meant for the fixed position. This doubles the gap on one breakpoint. Choose ONE positioning mode and stick with it: fixed sidebar + `ml-*` on main, OR in-flow sidebar (static/sticky via flex) + no `ml-*` on main. Never mix — not even responsive breakpoints.
-
-**AP-34 · Redundant Navigation Arrows** — "Left/Right" arrows on mobile carousels where swipe is primary affordance. *Exemption: Accessibility.*
-
-**AP-35 · Round-Top Bar Charts** — Significantly rounded top corners obscure data points. Dribbble-bait, not functional.
-
-**AP-36 · Floating Icons** — Icons larger than line-height of accompanying text.
-
-**AP-37 · Scroll Library Collision** — Adding `scroll-smooth` in `<html>` or `<body>` while a JS scroll library (Lenis, GSAP, etc.) is initialized. They fight for scroll control, causing stuttering. Native CSS smooth scrolling must be removed if a JS scroll library is used.
-
-**AP-38 · Footer Obstruction** — Fixed-position footer physically overlapping text/content, creating "dead zones" where users cannot read or interact. Leave minimum 60px bottom margin or use sticky header only.
-
-**AP-39 · Baseline Stutter** — Form fields, dropdowns, or inputs not sharing perfectly aligned baselines with labels above them. Creates visual "stutter" in scan. Align all field labels and inputs on unified baseline.
-
-**AP-40 · Mixed Material Logic** — Inconsistent depth treatment within same region (e.g., Share button has top-down light highlight but input fields are flat). "Material" surfaces must share consistent lighting direction.
-
-**AP-41 · Sub-Threshold Metadata** — UI metadata labels (WORDS, CHARS, badges) below 12px. Violates AP-22. Minimum 12px for accessibility.
-
-**AP-42 · Line-Height Tension** — Large headings (≥32px) with insufficient line-height causing descenders to touch next line ascenders. Use leading-tight (110-120%) for display type.
+**Q-1 · Bogus Status Signals** — Fake status indicators (pulsing green dots, "Live", "System Online", "All Systems Normal", "Connected", heartbeat icons) with no corresponding real monitoring, data source, or functional mechanism. Every status indicator, info panel, and live badge must represent a real, verifiable mechanism or be omitted entirely. *Exemption: None.*
+**Q-2 · Zero Bespoke Technique** — No techniques from §15-L. Minimum: scroll reveals + grain texture. See §0 G-2.
 
 **Anti-Pattern Override Rule:** visual direction exemption must be specific and named.
 
@@ -276,7 +268,7 @@ Match-and-refuse: if about to write any of these, stop and rewrite entirely.
 4. **Color as punctuation, not grammar.** One accent ≤ 10% of page. Two max; three only if justified.
 5. **Narrative flow.** Problem → solution → proof → action. Vary section formats.
 6. **Interaction quality signals craft.** Smooth scroll, personality hover, scroll reveals, custom cursor.
-7. **Real imagery or none.** AP-27 banned. Typography-only section > placeholder visual.
+7. **Real imagery or none.** V-12 banned. Typography-only section > placeholder visual.
 
 ### 4-E. ADDITIONAL DESIGN PRINCIPLES:
 
@@ -626,7 +618,7 @@ Use these as starting hypotheses, not classifications. Confirm with the brief.
 ### Font Selection Procedure (recommended)
 
 **Step 1 — Brand Voice Words:** 3 concrete words. NOT "modern/elegant" — "warm and mechanical and opinionated."
-**Step 2 — Reject Reflex Fonts:** List 3 natural picks. Reject all on Reflex Ban List (AP-3). Syne is the most overused "distinctive" pick.
+**Step 2 — Reject Reflex Fonts:** List 3 natural picks. Reject all on Reflex Ban List (V-3). Syne is the most overused "distinctive" pick.
 **Step 3 — Browse with Physical Metaphor:** Imagine font as physical object (typewriter ribbon, shop sign, terminal manual, fabric label, museum caption, children's book on cheap newsprint). Browse font catalogs (Google Fonts, Pangram Pangram, Future Fonts, ABC Dinamo, Klim Type Foundry, Velvetyne) with that physical object in mind. Reject the first thing that "looks designy" — that's the trained reflex. Keep looking.
 **Step 4 — Cross-Check Stereotypes:** The right font for an "elegant" brief is NOT necessarily a serif. The right font for a "technical" brief is NOT necessarily a sans-serif. The right font for a "warm" brief is NOT Fraunces. A children's product does NOT need a rounded display font. A "modern" brief does NOT need a geometric sans. If the final pick lines up with a reflex pattern, go back to Step 3.
 
