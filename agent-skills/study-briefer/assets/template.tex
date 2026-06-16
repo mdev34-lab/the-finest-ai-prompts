@@ -1,0 +1,134 @@
+% ════════════════════════════════════════════════════════════════════
+% Study Brief — LaTeX Template
+% ════════════════════════════════════════════════════════════════════
+% Compile with: tectonic filename.tex
+% Output: filename.pdf (same directory)
+%
+% DEFAULTS (override on user request):
+%   - Body font: Liberation Sans (via fontspec)
+%   - Math font: Computer Modern (default LaTeX — do not change without explicit request)
+%   - Page: A4, 20mm margins
+%   - Language: set via {language} placeholder
+%
+% NON-NEGOTIABLE:
+%   - Never use Unicode º (U+00BA) — use \textsuperscript{o} instead
+%   - Never use Unicode subscripts/superscripts in text mode
+%   - All math inside $...$ or \[...\] delimiters
+%   - No spaces in filenames
+% ════════════════════════════════════════════════════════════════════
+
+\documentclass[11pt,a4paper]{article}
+
+% ── Packages ───────────────────────────────────────────────────────
+\usepackage{fontspec}
+\setmainfont{Liberation Sans}[
+  BoldFont = Liberation Sans Bold,
+  ItalicFont = Liberation Sans Italic,
+  BoldItalicFont = Liberation Sans Bold Italic,
+]
+\usepackage[{language}]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\geometry{a4paper, top=20mm, bottom=20mm, left=20mm, right=20mm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+
+% ── Colors & links ────────────────────────────────────────────────
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=black,
+    pdftitle={Study Brief -- [SUBJECT]},
+    pdfauthor={[Author]},
+    pdfsubject={[SUBJECT]},
+}
+
+% ── Custom commands ────────────────────────────────────────────────
+% Section heading (bold, large)
+\newcommand{\secao}[1]{\vspace{8pt}{\bfseries\large #1}\par\vspace{2pt}}
+% Subsection heading (bold, normal size)
+\newcommand{\subsecao}[1]{\vspace{4pt}{\bfseries #1}\par\vspace{1pt}}
+% Study tip (bold prefix + content, label adapts per language)
+\newcommand{\dica}[1]{\vspace{2pt}\textbf{[STUDY_TIP_LABEL]:} #1\par\vspace{2pt}}
+% Activity section heading
+\newcommand{\ativtitulo}[1]{\vspace{6pt}{\bfseries #1}\par\vspace{2pt}}
+
+% ── Document ───────────────────────────────────────────────────────
+\begin{document}
+
+% ── Header ─────────────────────────────────────────────────────────
+{\small [SUBJECT_LABEL]: [SUBJECT]}\\
+{\small [TEACHER_LABEL]: ---}\\
+{\small [AUTHOR_LABEL]: [Author]}\\[2pt]
+{\small\itshape [NOTES_LABEL]: [Notes text].}\\[6pt]
+
+{\bfseries\Large [TITLE_PREFIX]}\\
+{\bfseries\Large [TITLE]}\\[6pt]
+
+% ════════════════════════════════════════════════════════════════════
+% CONTENT SECTIONS
+% ════════════════════════════════════════════════════════════════════
+
+\secao{1. [SECTION TITLE]}
+
+[Substantial paragraph with 3+ sentences explaining the topic in detail,
+including specific names, dates, and examples.]
+
+\subsecao{Sub-topic}
+[Additional detail about a specific aspect.]
+
+\begin{itemize}[nosep,leftmargin=14pt]
+\item Key point with specific detail.
+\item Another point with concrete example.
+\item Third point for comprehensiveness.
+\end{itemize}
+
+\dica{Practical study tip helping students avoid common mistakes
+or remember key exam points.}
+
+% Repeat \secao for each topic...
+
+% ════════════════════════════════════════════════════════════════════
+% ACTIVITIES
+% ════════════════════════════════════════════════════════════════════
+
+{\bfseries\Large [ACTIVITIES_TITLE]}\\[6pt]
+
+\ativtitulo{1 -- [COMPREHENSION_LABEL]}
+\begin{enumerate}[nosep,leftmargin=14pt]
+\item Question about key concept.
+\item Question about another key concept.
+\end{enumerate}
+
+\ativtitulo{2 -- [MULTIPLE_CHOICE_LABEL]}
+
+\textbf{1.} Stem of the question:\\[2pt]
+\quad ( ) Option A. \quad ( ) Option B. \quad ( ) Option C. \quad ( ) Option D.\\[4pt]
+
+\textbf{2.} Stem of the question:\\[2pt]
+\quad ( ) Option A. \quad ( ) Option B. \quad ( ) Option C. \quad ( ) Option D.\\[4pt]
+
+\ativtitulo{3 -- [TRUE_FALSE_LABEL]}
+\begin{itemize}[nosep,leftmargin=14pt]
+\item ( ) Statement to evaluate.
+\item ( ) Another statement to evaluate.
+\end{itemize}
+
+\ativtitulo{4 -- [MATCHING_LABEL]}
+(1) Item A \quad (2) Item B \quad (3) Item C\\[4pt]
+\begin{itemize}[nosep,leftmargin=14pt]
+\item ( ) Description matching one item.
+\item ( ) Description matching another item.
+\end{itemize}
+
+\ativtitulo{5 -- [PRACTICE_LABEL]}
+\begin{enumerate}[nosep,leftmargin=14pt]
+\item Short-answer practice question.
+\item Another practice question.
+\end{enumerate}
+
+\end{document}
