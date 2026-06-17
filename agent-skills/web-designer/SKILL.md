@@ -1,9 +1,9 @@
 ---
 name: web-designer
 description: >
-  Your UI looks generic. I'll craft a full brand identity — logos, tokens, typography, components — with dark mode,
-  micro-interactions, WCAG AA, and production-ready Tailwind/CSS/React output.
-  Ships fast. Looks expensive.
+  Use when the task requires professional UI/UX design with full brand identity (logos, tokens, typography, components),
+  dark mode, micro-interactions, WCAG AA accessibility, and production-ready Tailwind/CSS/React output.
+  Handles brand direction, component architecture, typography systems, responsive layout, and user experience design.
 license: CC BY 4.0
 metadata:
     author: mdev34-lab
