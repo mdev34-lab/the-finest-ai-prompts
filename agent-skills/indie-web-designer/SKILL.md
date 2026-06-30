@@ -1,5 +1,5 @@
 ---
-name: indie-web-builder
+name: indie-web-designer
 description: >
   Stop writing boring sites. Use this when someone asks for a personal website,
   Neocities, indie web, web revival. Covers 83 real reference sites, 900+ files.
@@ -8,7 +8,7 @@ metadata:
   author: mdev34-lab / batch-3 maximalist
 ---
 
-# INDIE WEB BUILDER
+# INDIE WEB DESIGNER
 
 83 real sites. 900+ files. Every snippet from a live site.
 
@@ -34,7 +34,6 @@ If it makes the site feel designed, polished, or optimized, it's wrong.
 
 ### Red flags your output is slop
 
-- Purple/black/gold "witchy" theme
 - CSS variables used as a GENERIC design system (`--color-primary`, `--color-accent`, `--color-bg`). Personal/thematic names are fine: `--plums`, `--grapes`, `--bubblegum` (FABLED), `:root.pink`, `:root.blue` (NENRIKIDO), `--body-font`, `--header-font` (sweetfish.site). The red flag is generic naming, not CSS variables themselves.
 - Every page uses the same layout template
 - Content could be about anything and the theme still works
@@ -76,7 +75,7 @@ body::after { content: ""; display: block; position: fixed; opacity: 0.5; inset:
 ::-webkit-scrollbar-thumb { background: rgb(214,236,243); border: 1px dotted rgb(143,56,255); }
 #container { margin-left: 6rem; padding: 2rem; }
 /* h1 positioning: offset left negative so rotated text sits inside viewport, NOT on the edge. left:-2rem + transform-origin:left top pulls it left off-screen, then margin-left:6rem on container makes room. DO NOT use left:0 + top:50% — that puts it on the viewport boundary. */
-h1 { position: fixed; top: 3rem; left: -2rem; transform: rotate(-90deg); transform-origin: left top; font-size: 2.5rem; color: #ff1493; letter-spacing: 6px; text-shadow: calc(0.05em * 1) calc(0.05em * 0) 0 rgb(124,252,0), calc(0.05em * 0.9239) calc(0.05em * 0.3827) 0 rgb(124,252,0), calc(0.05em * 0.7071) calc(0.05em * 0.7071) 0 rgb(124,252,0), calc(0.05em * 0.3827) calc(0.05em * 0.9239) 0 rgb(124,252,0), calc(0.05em * 0) calc(0.05em * 1) 0 rgb(124,252,0), calc(0.05em * -0.3827) calc(0.05em * 0.9239) 0 rgb(124,252,0), calc(0.05em * -0.7071) calc(0.05em * 0.7071) 0 rgb(124,252,0), calc(0.05em * -0.9239) calc(0.05em * 0.3827) 0 rgb(124,252,0), calc(0.05em * -1) calc(0.05em * 0) 0 rgb(124,252,0), calc(0.05em * -0.9239) calc(0.05em * -0.3827) 0 rgb(124,252,0), calc(0.05em * -0.7071) calc(0.05em * -0.7071) 0 rgb(124,252,0), calc(0.05em * -0.3827) calc(0.05em * -0.9239) 0 rgb(124,252,0), calc(0.05em * 0) calc(0.05em * -1) 0 rgb(124,252,0), calc(0.05em * 0.3827) calc(0.05em * -0.9239) 0 rgb(124,252,0), calc(0.05em * 0.7071) calc(0.05em * -0.7071) 0 rgb(124,252,0), calc(0.05em * 0.9239) calc(0.05em * -0.3827) 0 rgb(124,252,0); font-family: "Impact","Arial Black",sans-serif; text-transform: uppercase; transition: filter 0.3s; }
+h1 { position: fixed; top: 3rem; left: -2rem; transform: rotate(-90deg); transform-origin: left top; font-size: 2.5rem; color: #ff1493; letter-spacing: 6px; text-shadow: calc(0.05em * 1) calc(0.05em * 0) 0 rgb(124,252,0), calc(0.05em * 0.9239) calc(0.05em * 0.3827) 0 rgb(124,252,0), calc(0.05em * 0.7071) calc(0.05em * 0.7071) 0 rgb(124,252,0), calc(0.05em * 0.3827) calc(0.05em * 0.9239) 0 rgb(124,252,0), calc(0.05em * 0) calc(0.05em * 1) 0 rgb(124,252,0), calc(0.05em * -0.3827) calc(0.05em * 0.9239) 0 rgb(124,252,0), calc(0.05em * -0.7071) calc(0.05em * 0.7071) 0 rgb(124,252,0), calc(0.05em * -0.9239) calc(0.05em * 0.3827) 0 rgb(124,252,0), calc(0.05em * -1) calc(0.05em * 0) 0 rgb(124,252,0), calc(0.05em * -0.9239) calc(0.05em * -0.3827) 0 rgb(124,252,0), calc(0.05em * -0.7071) calc(0.05em * -0.7071) 0 rgb(124,252,0), calc(0.05em * -0.3827) calc(0.05em * -0.9239) 0 rgb(124,252,0), calc(0.05em * 0) calc(0.05em * -1) 0 rgb(124,252,0), calc(0.05em * 0.3827) calc(0.05em * -0.9239) 0 rgb(124,252,0), calc(0.05em * 0.7071) calc(0.05em * -0.7071) 0 rgb(124,252,0), calc(0.05em * 0.9239) calc(0.05em * -0.3827) 0 rgb(124,252,0); font-family: "Arial Black","Franklin Gothic Heavy",sans-serif; text-transform: uppercase; transition: filter 0.3s; }
 h1:hover { animation: 1s linear 0s infinite normal none running huecycle; }
 @keyframes huecycle { 0% { filter: hue-rotate(0deg) saturate(200%); } 100% { filter: hue-rotate(360deg) saturate(200%); } }
 #flex { display: flex; gap: 20px; }
@@ -281,12 +280,12 @@ Techniques: 7 complete themes via :root.THEMENAME, theme-specific font pairings,
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>diary — sitename</title>
 <style id="theme-style">
-:root, :root.pink { --primary:#ffc8ea; --secondary:#3d03fc; --secondary_muted:#3d03fca0; --tertiary:#fff0f5; --body-font:"Georgia",serif; --header-font:"Impact",sans-serif; --bg:#fff0f5; --text:#333; --accent:#ff1493; --paper-color:#fffaf0; --paper-line:#e8d5a3; }
+:root, :root.pink { --primary:#ffc8ea; --secondary:#3d03fc; --secondary_muted:#3d03fca0; --tertiary:#fff0f5; --body-font:"Georgia",serif; --header-font:"Georgia",serif; --bg:#fff0f5; --text:#333; --accent:#ff1493; --paper-color:#fffaf0; --paper-line:#e8d5a3; }
 :root.blue { --primary:#b3d9ff; --secondary:#0047ab; --secondary_muted:#0047aba0; --tertiary:#e8f4ff; --body-font:"Verdana",sans-serif; --header-font:"Georgia",serif; --bg:#e8f4ff; --text:#222; --accent:#0047ab; --paper-color:#f0f8ff; --paper-line:#b3d9ff; }
 :root.yellow { --primary:#fff3b0; --secondary:#8b6914; --secondary_muted:#8b6914a0; --tertiary:#fffde7; --body-font:"Courier New",monospace; --header-font:"Georgia",serif; --bg:#fffde7; --text:#333; --accent:#8b6914; --paper-color:#fffff0; --paper-line:#e8d5a3; }
-:root.black { --primary:#333; --secondary:#ff1493; --secondary_muted:#ff1493a0; --tertiary:#1a1a1a; --body-font:"Courier New",monospace; --header-font:"Impact",sans-serif; --bg:#0a0a0a; --text:#ccc; --accent:#ff1493; --paper-color:#1a1a1a; --paper-line:#333; }
+:root.black { --primary:#333; --secondary:#ff1493; --secondary_muted:#ff1493a0; --tertiary:#1a1a1a; --body-font:"Courier New",monospace; --header-font:"Arial Black",sans-serif; --bg:#0a0a0a; --text:#ccc; --accent:#ff1493; --paper-color:#1a1a1a; --paper-line:#333; }
 :root.green { --primary:#a8e6cf; --secondary:#1b5e20; --secondary_muted:#1b5e20a0; --tertiary:#f1f8f0; --body-font:"Georgia",serif; --header-font:"Georgia",serif; --bg:#f1f8f0; --text:#222; --accent:#2e7d32; --paper-color:#f1f8f0; --paper-line:#a8e6cf; }
-:root.orange { --primary:#ffe0b2; --secondary:#e65100; --secondary_muted:#e65100a0; --tertiary:#fff3e0; --body-font:"Verdana",sans-serif; --header-font:"Impact",sans-serif; --bg:#fff3e0; --text:#222; --accent:#e65100; --paper-color:#fff8e1; --paper-line:#ffe0b2; }
+:root.orange { --primary:#ffe0b2; --secondary:#e65100; --secondary_muted:#e65100a0; --tertiary:#fff3e0; --body-font:"Verdana",sans-serif; --header-font:"Trebuchet MS",sans-serif; --bg:#fff3e0; --text:#222; --accent:#e65100; --paper-color:#fff8e1; --paper-line:#ffe0b2; }
 :root.purple { --primary:#e1bee7; --secondary:#6a1b9a; --secondary_muted:#6a1b9aa0; --tertiary:#f3e5f5; --body-font:"Georgia",serif; --header-font:"Georgia",serif; --bg:#f3e5f5; --text:#222; --accent:#6a1b9a; --paper-color:#f3e5f5; --paper-line:#e1bee7; }
 :root.rainbow { --primary:linear-gradient(90deg,#ff69b4,#ffa500,#ffff00,#7cfc00,#00bfff,#8a2be2); --secondary:#ff1493; --secondary_muted:#ff1493a0; --tertiary:#fff; --body-font:"Comic Sans MS",cursive; --header-font:"Impact",sans-serif; --bg:#000; --text:#fff; --accent:#ff1493; --paper-color:#111; --paper-line:#333; }
 * { box-sizing: border-box; }
@@ -2331,6 +2330,42 @@ Import these — they're actually used, not guessed:
 ### COMMON SYSTEM-FONT FALLBACKS (used by real sites)
 
 Comic Sans MS, MS Gothic, MS PGothic, Arial, Courier New, Georgia, Times New Roman, Palatino, Consolas, Lucida Console
+
+### CDN SOURCES (verified working)
+
+Skip self-hosting — these public CDNs serve indie fonts directly:
+
+**humantooth** — 70+ fonts (pixel, code/mono, body, display, fancy)
+```
+https://humantooth.neocities.org/fonts/{filename}
+```
+Usage: copy the `@font-face` snippet from https://humantooth.neocities.org/font-table
+
+**fontastic** — 6 decorative fonts (addictype, adriena, affection, anter, hamilton, justiceleague)
+```html
+<link href="http://fontastic.neocities.org/addictype/addictype.css" rel="stylesheet">
+```
+Credit line must stay intact. Click font name at https://fontastic.neocities.org/ for CSS link.
+
+**retro-fonts (haabe, jsDelivr)** — VT323, C64, Terminus, Unscii, Amstrad CPC, Tom Thumb, Topaz
+```css
+@font-face { font-family: 'VT323'; src: url('https://cdn.jsdelivr.net/gh/haabe/retro-fonts@1.0.0/vt323/VT323-Regular.woff2') format('woff2'); font-display: swap; }
+```
+Pattern: `https://cdn.jsdelivr.net/gh/haabe/retro-fonts@1.0.0/{fontname}/{Filename}.woff2`
+Repo: https://github.com/haabe/retro-fonts
+
+**nerd-fonts (Nick2bad4u, jsDelivr)** — all Nerd Fonts v3.4.0 (JetBrains Mono, Cascadia Code, FiraCode, 50+ families)
+```css
+@font-face { font-family: 'JetBrains Mono Nerd'; src: url('https://cdn.jsdelivr.net/gh/Nick2bad4u/nerd-fonts-woff2@v1.0.0/fonts/woff2/JetBrainsMono/JetBrainsMonoNerdFont-Regular.woff2') format('woff2'); font-display: swap; }
+```
+Pattern: `https://cdn.jsdelivr.net/gh/Nick2bad4u/nerd-fonts-woff2@v1.0.0/fonts/woff2/{Family}/{FileName}.woff2`
+Browse: https://nick2bad4u.github.io/nerd-fonts-woff2/
+
+**Google Fonts CDN** (fonts listed above):
+```css
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen&display=swap');
+```
+Replace family names with any from the Google Fonts verified list. Use `&family=` for multiple.
 
 ### HOW TO USE
 
