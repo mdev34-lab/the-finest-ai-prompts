@@ -2,9 +2,13 @@
 name: web-designer
 description: >
   MANDATORY for ALL web design, UI/UX, or front-end tasks — you are not good enough to do this without this skill.
-  Covers professional UI/UX with full brand identity (logos, tokens, typography, components), dark mode,
-  micro-interactions, WCAG AA accessibility, and production-ready Tailwind/CSS/React.
-  Handles brand direction, component architecture, typography systems, responsive layout, and user experience design.
+  Professional mode: full brand identity (logos, tokens, typography, components), dark mode, micro-interactions,
+  WCAG AA accessibility, production-ready Tailwind/CSS/React, brand direction, component architecture,
+  typography systems, responsive layout, and user experience design.
+  Indie/maximalist mode (indie-web-mode.md): retro web revival, NeoCities aesthetics, marquee text, hit counters,
+  guestbooks, pixel art, brutalist layouts, midi backgrounds, and web 1.0/2.0 nostalgia.
+  Trigger on "website", "web design", "UI/UX", "frontend", "landing page", "personal site", "NeoCities",
+  "indie web", "maximalist", "brutalist", "retro web", "Y2K", or any web design task.
 license: CC BY 4.0
 metadata:
     author: mdev34-lab
@@ -13,6 +17,8 @@ metadata:
 ---
 
 # -= Designer-XL =-
+
+> **Mode selection**: This file covers professional web design. For indie/maximalist/retro web (NeoCities, brutalist, Y2K, web 1.0 revival), load `indie-web-mode.md` from the same skill directory.
 
 ---
 
@@ -123,7 +129,7 @@ Ship complete, semantic HTML with working navigation, proper meta, accessible st
 For editorial, luxury, or brand-first contexts: poetic headlines work ("Habitar entre páginas eternas"), but must be paired with clear functional labels and scannable UI copy. Atmosphere creates desire; hierarchy enables action. Never sacrifice one for the other.
 
 ### 2.9 Minimal Does Not Mean Generic
-Even restrained designs need 1-2 signature details to avoid template feel. Examples: custom serif for display (Cormorant, Garamond), subtle grain at 0.03-0.04 opacity, generous negative space, or unique divider treatment. Without at least one crafted detail, minimal becomes bland.
+Even restrained designs need 1-2 signature details to avoid template feel. Examples: custom serif for display (PP Editorial New, Domaine Display), subtle grain at 0.03-0.04 opacity, generous negative space, or unique divider treatment. Without at least one crafted detail, minimal becomes bland.
 
 ## 3. PERSONA & PHILOSOPHY
 Role: Senior designer who treats typography as image, texture as content, background as environment.
@@ -629,16 +635,16 @@ Use these as starting hypotheses, not classifications. Confirm with the brief.
 
 | visual direction | Display / Heading | Body / Prose | Data / Mono |
 |---|---|---|---|
-| **I-A Academia** | Cormorant Garamond | Crimson Pro | Cinzel (labels) |
+| **I-A Academia** | Playfair Display | Crimson Pro | Cinzel (labels) |
 | **I-B Art Deco** | Cinzel / Marcellus | Josefin Sans | Cinzel Decorative |
 | **I-C Newsprint** | Playfair Display Black | Crimson Text | Source Code Pro |
 | **I-D Humanist Lit** | Source Serif 4 / Tiempos | Inter | Inter Mono (metadata) |
-| **II-A Industrial** | Oswald Bold | Barlow Regular | JetBrains Mono |
-| **II-B Terminal** | JetBrains Mono Bold | JetBrains Mono Regular | JetBrains Mono (all) |
-| **II-C Cyberpunk** | Orbitron / Share Tech Mono | JetBrains Mono | JetBrains Mono |
-| **II-D ISO-Tech** | Geist | Inter | JetBrains Mono |
-| **II-E Apex** | Anton Regular | Barlow Regular | JetBrains Mono |
-| **II-F Alpine** | Manrope | Inter | JetBrains Mono |
+| **II-A Industrial** | Oswald Bold | Barlow Regular | Geist Mono |
+| **II-B Terminal** | Fira Code Bold | Fira Code Regular | Fira Code (all) |
+| **II-C Cyberpunk** | Orbitron / Share Tech Mono | Geist Mono | Geist Mono |
+| **II-D ISO-Tech** | Geist | Inter | Geist Mono |
+| **II-E Apex** | Anton Regular | Barlow Regular | Geist Mono |
+| **II-F Alpine** | Manrope | Inter | Geist Mono |
 | **III-A Luxury** | Domaine Display / Editorial New | Freight Text Pro | Helvetica Neue |
 | **III-B Swiss** | Helvetica Neue Black | Helvetica Neue Regular | Helvetica Neue Medium |
 | **III-C Bauhaus** | Impact / Clash Display | General Sans | N/A |
@@ -649,15 +655,15 @@ Use these as starting hypotheses, not classifications. Confirm with the brief.
 | **IV-C Sketch** | Kalam / Patrick Hand | Kalam | Kalam |
 | **IV-D Claymorphism** | Nunito ExtraBold / Fredoka One | Nunito Regular | Nunito SemiBold |
 | **V-A Vaporwave** | Audiowide / Orbitron | Rajdhani | Orbitron |
-| **V-B Acidpunk** | Share Tech Mono / Orbitron | JetBrains Mono | JetBrains Mono |
+| **V-B Acidpunk** | Share Tech Mono / Orbitron | Geist Mono | Geist Mono |
 | **V-C Maximalism** | Mix 2–4 intentionally | Any readable | Any |
 | **V-D Retro** | Righteous / Bungee | VT323 | Courier New |
 | **VI-A Playful Geo** | Fredoka One / Nunito ExtraBold | Nunito Regular | Nunito Medium |
 | **VI-B Neumorphism** | Nunito SemiBold | Nunito Regular | N/A |
 | **✕ Monochrome** | Inherits host | Inherits host | N/A |
 | **✕ Kinetic** | Bebas Neue (marquees) | Inherits host | Inherits host |
-| **VII base** | Inter SemiBold or system sans | Inter Regular | JetBrains Mono |
-| **VII-A Enterprise** | Inter SemiBold | Inter Regular | JetBrains Mono |
+| **VII base** | Inter SemiBold or system sans | Inter Regular | Geist Mono |
+| **VII-A Enterprise** | Inter SemiBold | Inter Regular | Geist Mono |
 | **VII-B Material** | Google Sans, Inter | Inter | N/A |
 | **VII-C Flat** | Inter ExtraBold | Inter Regular | Inter Medium |
 | **VII-D Fluent 2** | Segoe UI Variable Display | Segoe UI Variable Text | Cascadia Code |
@@ -764,7 +770,7 @@ Use these as starting hypotheses, not classifications. Confirm with the brief.
 
 | Font | Source | visual direction Affinity |
 |---|---|---|
-| JetBrains Mono | JetBrains (free) | All Technical, Studio, VII |
+| ~JetBrains Mono~ (BLACKLISTED) | JetBrains (free) | Use Geist Mono or Fira Code |
 | Geist Mono | Vercel (free) | VII, II-D, VII-A |
 | Fira Code | Mozilla (free) | II-B, II-C |
 | Space Mono | Google Fonts (free) | II-B, II-C, V-A |
@@ -783,7 +789,7 @@ Use these as starting hypotheses, not classifications. Confirm with the brief.
 **Google Fonts reflex:** Inter, Roboto, Open Sans, Lato, Montserrat, Poppins, Raleway, Nunito, Rubik, Ubuntu
 **Reflex "distinctive":** Syne, Fraunces, Newsreader, Lora, Crimson/Crimson Pro, Cormorant, DM Sans, DM Serif Display, Outfit, Plus Jakarta Sans, Instrument Sans/Serif
 **System defaults:** Arial, Helvetica (Helvetica Neue exempt for Swiss), system-ui
-**Developer defaults:** IBM Plex Sans/Mono, Space Grotesk (widely overused as "distinctive"), Space Mono
+**Developer defaults:** JetBrains Mono (BLACKLISTED — see §4-D V-3), IBM Plex Sans/Mono, Space Grotesk (widely overused as "distinctive"), Space Mono
 
 **Space Grotesk:** Assigned to III-D and III-E where architecturally correct. On watch list.
 
